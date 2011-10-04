@@ -1,0 +1,404 @@
+1,4c1,4
+< # Italian translation for bitsafe
+< # Copyright (C) 2011 Riccardo Belloli
+< # This file is distributed under the same license as bitsafe image.
+< # Riccardo Belloli <r.belloli@gmail.com>, 2011.
+---
+> # SOME DESCRIPTIVE TITLE.
+> # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+> # This file is distributed under the same license as the PACKAGE package.
+> # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+9c9
+< "Project-Id-Version: 1.0\n"
+---
+> "Project-Id-Version: PACKAGE VERSION\n"
+11,13c11,13
+< "POT-Creation-Date: 2011-10-03 19:04+0000\n"
+< "PO-Revision-Date: 2011-10-03 21:18+0200\n"
+< "Last-Translator: Riccardo Belloli <rb@belloli.net>\n"
+---
+> "POT-Creation-Date: 2011-10-04 08:33+0000\n"
+> "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+> "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+15c15
+< "Language: it\n"
+---
+> "Language: \n"
+17c17
+< "Content-Type: text/plain; charset=UTF-8\n"
+---
+> "Content-Type: text/plain; charset=CHARSET\n"
+25,26d24
+< "Nessuna partizione di memorizzazione trovata.\n"
+< "Lancio il tool di formattazione per crearne una."
+30c28
+< msgstr "Inserire la password utente"
+---
+> msgstr ""
+39,42c37,48
+< "Prego inserire la password per il blocco\n"
+< "dello schermo.\n"
+< "Può e DOVREBBE essere diversa rispetto alla"
+< "password della partizione di memorizzazione."
+---
+> 
+> #: /lib/strings/bitsafe-format-storage:2
+> msgid ""
+> "\n"
+> "bitsafe-format-storage <options>\n"
+> "\n"
+> "Creates the storage partition on the current device (if needed), wipes and\n"
+> "installs a luks volume on it, then formats it with EXT4.\n"
+> "Options:\n"
+> "        -u              Leave the cryptdevice mapping when cleaning\n"
+> "        -h              this help\n"
+> msgstr ""
+46c52
+< msgstr "FORMATTATORE DELLA PARTIZIONE DI MEMORIZZAZIONE"
+---
+> msgstr ""
+51c57
+< "ssh and gpg are closed, and wait untill the USB drive is idle (the LED\n"
+---
+> "ssh and gpg are closed, and wait untill the USB drive is idle (the LED \n"
+53c59
+< "If this keeps happening, you may have to reboot bitsafe."
+---
+> "if this keeps happening, you may have to reboot bitsafe."
+55,58d60
+< "Non posso smontare la partizione di memorizzazione. Prego asiscurarsi che\n"
+< "bitcoin, ssh e gpg siano chiusi, e attendere sino a che il dispositivo\n"
+< "di storage è in idle (il LED non luccica).\n"
+< "Se continua a ripresentarsi, può essere necessario riavviare bitsafe."
+60c62
+< #: /lib/strings/bitsafe-format-storage:19
+---
+> #: /lib/strings/bitsafe-format-storage:20
+75,86d76
+< "Sembra esserci già una partizione di memorizzazione su questo disco.\n"
+< "Dopo la formattazione, qualunque cosa attualmente presente su tale\n"
+< "partizione verrà cancellata irrimediabilmente. Ciò include il portafolgio\n"
+< "bitcoin e le chiavi SSH e GPG. Prego assicurarsi che non ci siano bitcoin\n"
+< "su tale portafoglio o, qualora ci fossero, assicurarsi di avere un backup\n"
+< "completo e funzionale.\n"
+< "\n"
+< "Ribadisco:\n"
+< "$COLOR_RED PERDERAI $COLOR_B IRRIMEDIABILMENTE $COLOR_B QUALUNQUE BITCOIN TU ABBIA NELLO STORAGE\n"
+< "SE NON HAI UN BACKUP!!!.\n"
+< "\n"
+< "Scrivi yes in maiuscolo per continuare con la formattazione."
+88c78
+< #: /lib/strings/bitsafe-format-storage:30
+---
+> #: /lib/strings/bitsafe-format-storage:31
+91c81
+< msgstr "* Cancello la partizione $CRYPT_DEVICE "
+---
+> msgstr ""
+93c83
+< #: /lib/strings/bitsafe-format-storage:31
+---
+> #: /lib/strings/bitsafe-format-storage:32
+97,98d86
+< "Errore durante la rimozione della partizione. Il dispositivo è im modalità\n"
+< "di sola lettura?"
+100c88
+< #: /lib/strings/bitsafe-format-storage:33
+---
+> #: /lib/strings/bitsafe-format-storage:34
+106,108d93
+< "Nessuna partizione di storage rilevata sul dispositivo corrente.\n"
+< "Se questa è la prima volta che bitsafe viene avviato su questo\n"
+< "dispositivo, non c'è nulla di cui preoccuparsi e puoi continuare."
+110c95
+< #: /lib/strings/bitsafe-format-storage:40
+---
+> #: /lib/strings/bitsafe-format-storage:38
+112c97
+< msgstr "Vuoi continuare? (y/n)"
+---
+> msgstr ""
+114c99
+< #: /lib/strings/bitsafe-format-storage:41
+---
+> #: /lib/strings/bitsafe-format-storage:39
+116c101
+< msgstr "* Controllo lo spazio disponibile"
+---
+> msgstr ""
+118c103
+< #: /lib/strings/bitsafe-format-storage:43
+---
+> #: /lib/strings/bitsafe-format-storage:41
+124,125d108
+< "Il dispositivo su cui sta girando bitcoin è troppo piccolo.\n"
+< "Deve avere almeno $MIN_SIZE GB disponibili."
+127c110
+< #: /lib/strings/bitsafe-format-storage:46
+---
+> #: /lib/strings/bitsafe-format-storage:44
+130c113
+< msgstr "* Creo una partizione su $DRIVE da $PART_BEGIN MB a $PART_END MB"
+---
+> msgstr ""
+132c115
+< #: /lib/strings/bitsafe-format-storage:47
+---
+> #: /lib/strings/bitsafe-format-storage:45
+137,138d119
+< "Il partizionatore (parte) ha dato un errore. Il dispositivo si trova in\n"
+< "modalità di sola lettura?"
+140c121
+< #: /lib/strings/bitsafe-format-storage:48
+---
+> #: /lib/strings/bitsafe-format-storage:46
+142c123,124
+< "The partition was created but the OS doesn't detect it. Try to reboot and retry."
+---
+> "The partition was created but the OS doesn't detect it. Try to reboot and "
+> "retry."
+144d125
+< "La partizione è stata creata, ma l'OS non la rileva. Prova a riavviare."
+146c127
+< #: /lib/strings/bitsafe-format-storage:49
+---
+> #: /lib/strings/bitsafe-format-storage:47
+152d132
+< "* Riempio la partizione di memorizzazione con dati casuali da $BITSAFE_STORAGE_RANDOMIZE_SRC"
+154c134
+< #: /lib/strings/bitsafe-format-storage:50
+---
+> #: /lib/strings/bitsafe-format-storage:48
+156c136
+< msgstr "Possono essere necessari fino a 20 minuti, attendere..."
+---
+> msgstr ""
+158c138
+< #: /lib/strings/bitsafe-format-storage:51
+---
+> #: /lib/strings/bitsafe-format-storage:49
+162d141
+< "errore durante il riempimento. Pare che il dispositivo di memorizzazione sia rotto."
+164c143
+< #: /lib/strings/bitsafe-format-storage:52
+---
+> #: /lib/strings/bitsafe-format-storage:50
+166c145
+< msgstr "* Imposto la cifratura"
+---
+> msgstr ""
+168c147
+< #: /lib/strings/bitsafe-format-storage:53
+---
+> #: /lib/strings/bitsafe-format-storage:51
+170c149
+< msgstr "Prego inserire la password per la cifratura dei dati."
+---
+> msgstr ""
+172c151
+< #: /lib/strings/bitsafe-format-storage:54
+---
+> #: /lib/strings/bitsafe-format-storage:52
+174c153
+< msgstr "Prego reinserire la password per procedere con la formattazione"
+---
+> msgstr ""
+176c155
+< #: /lib/strings/bitsafe-format-storage:55
+---
+> #: /lib/strings/bitsafe-format-storage:53
+178c157
+< msgstr "Errore durante la decifratura della partizione di memorizzazione"
+---
+> msgstr ""
+180c159
+< #: /lib/strings/bitsafe-format-storage:56
+---
+> #: /lib/strings/bitsafe-format-storage:54
+185d163
+< "* Decifrato, inizio la formattazione. Può essere necessario qualche minuto, attendere..."
+187c165
+< #: /lib/strings/bitsafe-format-storage:57
+---
+> #: /lib/strings/bitsafe-format-storage:55
+191d168
+< "La formattazione ha dato un'errore. Probabilmente c'è qualcosa che non va col dispositivo di memorizzazione."
+193c170
+< #: /lib/strings/bitsafe-format-storage:58
+---
+> #: /lib/strings/bitsafe-format-storage:56
+195c172
+< msgstr "Non posso rimontare la partizione formattata!!! Problema con l'USB?"
+---
+> msgstr ""
+197c174
+< #: /lib/strings/bitsafe-format-storage:59
+---
+> #: /lib/strings/bitsafe-format-storage:57
+199c176
+< msgstr "Errore durante l'impostazione dei permessi. È un'errore molto strano."
+---
+> msgstr ""
+201c178
+< #: /lib/strings/bitsafe-format-storage:60
+---
+> #: /lib/strings/bitsafe-format-storage:58
+203c180
+< msgstr "Creazione completata!"
+---
+> msgstr ""
+209d185
+< "Per usare quest'applicazione è necessario montare la partizione di memorizzazione."
+213c189
+< msgstr "E R R O R E     C R I T I C O"
+---
+> msgstr ""
+217c193
+< msgstr "Questa script richiede privilegi di superutente. Riprova con sudo."
+---
+> msgstr ""
+224,226d199
+< "Non riesco a rilevare il dispositivo da cui sto girando. È un'errore molto\n"
+< "strano. Potrebbe essere necessario reinstallare l'immagine di bitsafe e\n"
+< "ricominciare da capo."
+230c203,225
+< msgstr "Premere INVIO per continuare"
+---
+> msgstr ""
+> 
+> #: /lib/strings/bitsafe-mount-storage:2
+> #, sh-format
+> msgid ""
+> "\n"
+> "bitsafe-mount-storage <options>\n"
+> "\n"
+> "Mounts the persistent storage partition (if any), requesting the\n"
+> "partition password.\n"
+> "Can work both in graphical and terminal mode. The Graphical mode\n"
+> "is enabled by default if the script is launched not interactively\n"
+> "and the display environment variable is defined. You can change\n"
+> "this with option flags.\n"
+> "\n"
+> "Options:\n"
+> "        -m <mountp>     Mounts in a given mountpoint, overriding\n"
+> "                        default ($BITSAFE_STORAGE_MOUNTPOINT)\n"
+> "        -g              Forces GUI behavior\n"
+> "        -t              Forces terminal-style behavior\n"
+> "        -q              Suppress all output\n"
+> "        -h              this help\n"
+> msgstr ""
+234c229
+< msgstr "Non rilevo il display corrente"
+---
+> msgstr ""
+238c233
+< msgstr "La partizione di memorizzazione è già montata."
+---
+> msgstr ""
+245,246d239
+< "Nessuna partizione di memorizzazione trovata. È possibile crearne\n"
+< "una con la funzione 'Formatta Storage'."
+250c243
+< msgstr "Immetti la Password"
+---
+> msgstr ""
+254c247
+< msgstr "Prego immettere la password per decifrare la partizione di memorizzazione."
+---
+> msgstr ""
+258c251
+< msgstr "Cancellato dall'utente"
+---
+> msgstr ""
+277,288d269
+< "Non è possibile decifrare la partizione di memorizzazione!\n"
+< "Possibili motivi:\n"
+< "* La formattazione è stata interrotta.\n"
+< "* Il PC è stato arrestato malamente in un brutto momento.\n"
+< "* qualcuno o qualcosa ha alterato il dispositivo USB.\n"
+< "\n"
+< "Se non riesci ad andare oltre questo errore nemmeno dopo un\n"
+< "reboot, allora probabilmente qualcunque cosa contenuta nella\n"
+< "chiavetta è persa. Ma hai un backup, vero?\n"
+< "\n"
+< "È possibile resettare la partizione di memorizzazione con la\n"
+< "funzione 'Formatta Storage' presente nel menù di sistema."
+302,309d282
+< "troppi errori di password.\n"
+< "Se la password è stata dimenticata, non c'è modo di\n"
+< "ripristinarla. Se hai un backup puoi resettare la partizione\n"
+< "di memorizzazione e inserire una nuova password.\n"
+< "Se non hai un backup... Beh, avresti dovuto pensarci prima.\n"
+< "\n"
+< "Il comando per resettare la partizione di memorizzazione è\n"
+< "'Formatta Storage', che si trova nel menu di sistema."
+313c286
+< msgstr "La partizione di memorizzazione è già decifrata, salto decifratura."
+---
+> msgstr ""
+317c290
+< msgstr "Primo tentativo di mount fallito. Forzo fsck."
+---
+> msgstr ""
+333,341d305
+< "Ho decifrato la partizione di storage, ma il mount ha fallito\n"
+< "anche dopo un fsck. Ciò può essere dovuto ad un arresto improprio.\n"
+< "Allegro, ci sono buone possibilità che tu possa recuperare il tuo\n"
+< "file portafolgio (wallet.dat).\n"
+< "\n"
+< "Lascio la partizione decifrata, la posizione è $DECRPATH.\n"
+< "Copialo su qualche supporto e dallo a qualche nerd che sa come\n"
+< "Recuperare dati da un file system ext4 corrotto, se non lo sai\n"
+< "fare. Buona fortuna! :)"
+345c309
+< msgstr "Il mount è fallito per ragioni sconosciute. Prova manualmente."
+---
+> msgstr ""
+349c313
+< msgstr "Storage attivo"
+---
+> msgstr ""
+353c317
+< msgstr "La partizione di memorizzazione è stata decifrata e montata."
+---
+> msgstr ""
+378c342
+< msgstr "Errore durante l'unmounting della partizione di memorizzazione."
+---
+> msgstr ""
+386,388c350
+< msgstr "La partizione di memorizzazione è in uso da:\n"
+< "$USERS_PROC\n"
+< "Chiudi i programmi riportati sopra per smontare."
+---
+> msgstr ""
+392c354
+< msgstr "La partizione di memorizzazione non è montata."
+---
+> msgstr ""
+397c359
+< msgstr "Errore durante l'unmouunting dell partizione montata in $VAR_MOUNTPOINT"
+---
+> msgstr ""
+402c364
+< msgstr "Errore mentre chiudevo il dispositivo luks $i"
+---
+> msgstr ""
+406c368
+< msgstr "Storage disattivato"
+---
+> msgstr ""
+410c372,382
+< msgstr "La partizione di memorizzazione è stata smontata e messa in sicurezza."
+---
+> msgstr ""
+> 
+> #: /usr/bin/storage_wrappers/bitcoin:2
+> msgid "Bitcoin is starting up"
+> msgstr ""
+> 
+> #: /usr/bin/storage_wrappers/bitcoin:3
+> msgid ""
+> "Bitcoin is starting for the first time on this media.\n"
+> "It will take some time to build up its environment, please wait..."
+> msgstr ""

@@ -1,0 +1,7 @@
+
+lb clean noauto
+
+#When i clean, I want to remove the config folder as well, to force it to be repopulated.
+test -d config && rm -r config
+
+

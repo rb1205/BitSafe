@@ -1,0 +1,47 @@
+# Bitsafe - Live Builder auto build script
+
+. ./bitsafe.build.conf
+
+lb config noauto \
+--architecture $PRECONF_ARCHITECTURE \
+--linux-flavours $PRECONF_SUBARCH \
+--distribution squeeze \
+--includes none \
+--memtest none \
+--binary-images usb-hdd \
+--archive-areas "main non-free" \
+--volatile false \
+--syslinux-splash "contrib/media/syslinux_splash.png" \
+--cache-stages bootstrap \
+--debian-installer false \
+--hostname bitsafe \
+--iso-preparer "Debian" \
+--iso-application "Bitsafe" \
+--cache-indices true \
+--bootstrap-flavour minimal \
+--apt-recommends disabled \
+--tasksel none \
+--binary-indices disabled \
+--packages-lists "minimal"  
+
+#Encryption is bugged on squeeze
+# --encryption aes256 \
+
+# I don't need boot parameter, i create a custom menulist for syslinux later on in the build with hooks
+
+#Copy all source configuration files to config folder
+cp -a src/* config/
+
+#Copy bitsafe configuration files in the bitsafe image
+cat bitsafe.live.conf >>config/chroot_local-includes/usr/share/bitsafe/bitsafe.live.conf
+cp bitsafe.build.conf config/chroot_local-includes/usr/share/bitsafe/
+
+#Copy localizations 
+cp localizations/bitsafe/*.po config/chroot_local-includes/usr/share/bitsafe/localizations
+
+#Exclude some packages in the bootstrap image
+export LB_BOOTSTRAP_EXCLUDE="vim-tiny,nano,ed"
+
+#Do not add boot directory to the image, as it wold be never used. But it doesn't work.
+export MKSQUASHFS_OPTIONS="-e boot"
+

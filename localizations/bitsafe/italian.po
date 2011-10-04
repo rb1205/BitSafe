@@ -1,0 +1,502 @@
+# Italian translation for bitsafe
+# Copyright (C) 2011 Riccardo Belloli
+# This file is distributed under the same license as bitsafe image.
+# Riccardo Belloli <r.belloli@gmail.com>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-03 19:04+0000\n"
+"PO-Revision-Date: 2011-10-03 21:18+0200\n"
+"Last-Translator: Riccardo Belloli <rb@belloli.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /usr/sbin/bitsafe-mount-storage-helper:14
+msgid ""
+"No persistent storage partition found.\n"
+"I will now start the BitSafe storage format utility."
+msgstr ""
+"Nessuna partizione di memorizzazione trovata.\n"
+"Lancio il tool di formattazione per crearne una."
+
+#: /usr/bin/bitsafe-enter-passwd:7
+msgid "Enter user password"
+msgstr "Inserire la password utente"
+
+#: /usr/bin/bitsafe-enter-passwd:9
+msgid ""
+"Please enter the user password for the\n"
+"screen locking feature.\n"
+"It can and it SHOULD be different from\n"
+"the secure storage partition password."
+msgstr ""
+"Prego inserire la password per il blocco\n"
+"dello schermo.\n"
+"Può e DOVREBBE essere diversa rispetto alla\n"
+"password della partizione di memorizzazione."
+
+#: /lib/strings/bitsafe-format-storage:2
+msgid ""
+"\n"
+"bitsafe-format-storage <options>\n"
+"\n"
+"Creates the storage partition on the current device (if needed), wipes and\n"
+"installs a luks volume on it, then formats it with EXT4.\n"
+"Options:\n"
+"        -u              Leave the cryptdevice mapping when cleaning\n"
+"        -h              this help\n"
+msgstr ""
+"\n"
+"bitsafe-format-storage <opzioni>\n"
+"\n"
+"Crea la partizione di memorizzazione sul dispositivo attuale (se necessario),\n"
+"azzera e crea un volume luks e infine formatta con ext4.\n"
+"Opzioni:\n"
+"	-u		Non chiude il mapping di cryptdevice alla chiusura\n"
+"	-h		Questo aiuto\n"
+
+
+#: /lib/strings/bitsafe-format-storage:12
+msgid "BITSAFE FORMAT STORAGE TOOL"
+msgstr "FORMATTATORE DELLO STORAGE"
+
+#: /lib/strings/bitsafe-format-storage:14
+msgid ""
+"I can't unmount the storage partition. Please make sure that bitcoin,\n"
+"ssh and gpg are closed, and wait untill the USB drive is idle (the LED \n"
+"stops blinking).\n"
+"if this keeps happening, you may have to reboot bitsafe."
+msgstr ""
+"Non posso smontare la partizione di memorizzazione. Prego asiscurarsi che\n"
+"bitcoin, ssh e gpg siano chiusi, e attendere sino a che il dispositivo\n"
+"di storage è in idle (il LED non luccica).\n"
+"Se continua a ripresentarsi, può essere necessario riavviare bitsafe."
+
+#: /lib/strings/bitsafe-format-storage:19
+#, sh-format
+msgid ""
+"It appears that there's already a storage partition on this disk.\n"
+"After the format, everything you have on the storage partition is going\n"
+"to be removed from the disk permanently. This includes the bitcoin wallet\n"
+"and the SSH and GPG private keys, be sure you don't have any bitcoin on\n"
+"the wallet, and if you do be sure you have a fully functional backup.\n"
+"\n"
+"Let me put this clear:\n"
+"YOU _WILL_ LOSE ALL THE BITCOIN STORED IF YOU DON'T HAVE A BAKUP!!!!\n"
+"\n"
+"Please enter uppercase yes if you are absolutely sure you want to continue."
+msgstr ""
+"Sembra esserci già una partizione di memorizzazione su questo disco.\n"
+"Dopo la formattazione, qualunque cosa attualmente presente su tale\n"
+"partizione verrà cancellata irrimediabilmente. Ciò include il portafolgio\n"
+"bitcoin e le chiavi SSH e GPG. Prego assicurarsi che non ci siano bitcoin\n"
+"su tale portafoglio o, qualora ci fossero, assicurarsi di avere un backup\n"
+"completo e funzionale.\n"
+"\n"
+"Ribadisco:\n"
+"PERDERAI _IRRIMEDIABILMENTE_ QUALUNQUE BITCOIN TU ABBIA NELLO STORAGE\n"
+"SE NON HAI UN BACKUP!!!\n"
+"\n"
+"Scrivi yes in maiuscolo per continuare con la formattazione."
+
+#: /lib/strings/bitsafe-format-storage:30
+#, sh-format
+msgid "* Deleting partition %s"
+msgstr "* Cancello la partizione %s"
+
+#: /lib/strings/bitsafe-format-storage:31
+msgid ""
+"Error while deleting the storage partition. Is the media in read-only mode?"
+msgstr ""
+"Errore durante la rimozione della partizione. Il dispositivo è im modalità\n"
+"di sola lettura?"
+
+#: /lib/strings/bitsafe-format-storage:33
+msgid ""
+"No storage partition found on the current drive.\n"
+"If this is the first time you are running BitSafe from this device\n"
+"there's nothing you should be worried about, and you can safely continue."
+msgstr ""
+"Nessuna partizione di storage rilevata sul dispositivo corrente.\n"
+"Se questa è la prima volta che bitsafe viene avviato su questo\n"
+"dispositivo, non c'è nulla di cui preoccuparsi e puoi continuare."
+
+#: /lib/strings/bitsafe-format-storage:40
+msgid "You wish to continue? (y/n)"
+msgstr "Vuoi continuare? (y/n)"
+
+#: /lib/strings/bitsafe-format-storage:41
+msgid "* Checking available space"
+msgstr "* Controllo lo spazio disponibile"
+
+#: /lib/strings/bitsafe-format-storage:43
+#, sh-format
+msgid ""
+"The device you are running bitsafe from is too small.\n"
+"It needs at least %s GB of storage space."
+msgstr ""
+"Il dispositivo su cui sta girando bitcoin è troppo piccolo.\n"
+"Deve avere almeno %s GB disponibili."
+
+#: /lib/strings/bitsafe-format-storage:46
+#, sh-format
+msgid "* Creating a partition on %s from %s MB to %s MB"
+msgstr "* Creo una partizione su %s da %s MB a %s MB"
+
+#: /lib/strings/bitsafe-format-storage:47
+msgid ""
+"Partition creator (parted) returned error! Is the device set on read-only "
+"mode perhaps?"
+msgstr ""
+"Il partizionatore (parte) ha dato un errore. Il dispositivo si trova in\n"
+"modalità di sola lettura?"
+
+#: /lib/strings/bitsafe-format-storage:48
+msgid ""
+"The partition was created but the OS doesn't detect it. Try to reboot and "
+"retry."
+msgstr ""
+"La partizione è stata creata, ma l'OS non la rileva. Prova a riavviare."
+
+#: /lib/strings/bitsafe-format-storage:49
+#, sh-format
+msgid "* Filling the storage partition with random data from %s"
+msgstr "* Riempio la partizione di memorizzazione con dati casuali da %s"
+
+#: /lib/strings/bitsafe-format-storage:50
+msgid "This can take up to 20 minutes, please wait..."
+msgstr "Possono essere necessari fino a 20 minuti, attendere..."
+
+#: /lib/strings/bitsafe-format-storage:51
+msgid ""
+"Error while filling data with dd. Looks like your storage device is broken."
+msgstr ""
+"errore durante il riempimento. Pare che il dispositivo di memorizzazione sia rotto."
+
+#: /lib/strings/bitsafe-format-storage:52
+msgid "* Setting up encryption"
+msgstr "* Imposto la cifratura"
+
+#: /lib/strings/bitsafe-format-storage:53
+msgid "Please enter the new password for the crypted storage."
+msgstr "Prego inserire la password per la cifratura dei dati."
+
+#: /lib/strings/bitsafe-format-storage:54
+msgid "Please re-enter the password to proceed with the format."
+msgstr "Prego reinserire la password per procedere con la formattazione"
+
+#: /lib/strings/bitsafe-format-storage:55
+msgid "Failed to decrypt the storage partition."
+msgstr "Errore durante la decifratura della partizione di memorizzazione"
+
+#: /lib/strings/bitsafe-format-storage:56
+msgid ""
+"* Decrypted. Launching format. This can take up to few minutes, please "
+"wait..."
+msgstr ""
+"* Decifrato, inizio la formattazione. \n"
+"Può essere necessario qualche minuto, attendere..."
+
+#: /lib/strings/bitsafe-format-storage:57
+msgid ""
+"Format returned error! Probably something is wrong with your storage device."
+msgstr ""
+"La formattazione ha dato un'errore. Probabilmente c'è qualcosa che non\n"
+"va col dispositivo di memorizzazione."
+
+#: /lib/strings/bitsafe-format-storage:58
+msgid "Can't remount the formatted partition!!! USB issue?"
+msgstr "Non posso rimontare la partizione formattata!!! Problema con l'USB?"
+
+#: /lib/strings/bitsafe-format-storage:59
+msgid "Error while setting up the partition permissions. Really a weird error."
+msgstr "Errore durante l'impostazione dei permessi. È un'errore molto strano."
+
+#: /lib/strings/bitsafe-format-storage:60
+msgid "Creation succesful!"
+msgstr "Creazione completata!"
+
+#: /lib/strings/bitsafe-func:1
+msgid ""
+"You need the persistent storage partition mounted to launch this program."
+msgstr ""
+"Per usare quest'applicazione è necessario montare la partizione\n"
+"di memorizzazione."
+
+#: /lib/strings/bitsafe-func:2
+msgid "C R I T I C A L      E R R O R"
+msgstr "E R R O R E     C R I T I C O"
+
+#: /lib/strings/bitsafe-func:3
+msgid "This script requires superuser privileges. Try using sudo."
+msgstr "Questa script richiede privilegi di superutente. Riprova con sudo."
+
+#: /lib/strings/bitsafe-func:5
+msgid ""
+"I can't get the device i'm running from. This is really a weird error.\n"
+"You should probably reinstall the bitsafe image and start all over."
+msgstr ""
+"Non riesco a rilevare il dispositivo da cui sto girando. È un'errore molto\n"
+"strano. Potrebbe essere necessario reinstallare l'immagine di bitsafe e\n"
+"ricominciare da capo."
+
+#: /lib/strings/bitsafe-func:7
+msgid "Press ENTER to continue"
+msgstr "Premere INVIO per continuare"
+
+#: /lib/strings/bitsafe-mount-storage:2
+#, sh-format
+msgid ""
+"\n"
+"bitsafe-mount-storage <options>\n"
+"\n"
+"Mounts the persistent storage partition (if any), requesting the\n"
+"partition password.\n"
+"Can work both in graphical and terminal mode. The Graphical mode\n"
+"is enabled by default if the script is launched not interactively\n"
+"and the display environment variable is defined. You can change\n"
+"this with option flags.\n"
+"\n"
+"Options:\n"
+"        -m <mountp>     Mounts in a given mountpoint, overriding default\n"
+"        -g              Forces GUI behavior\n"
+"        -t              Forces terminal-style behavior\n"
+"        -q              Suppress all output\n"
+"        -h              this help\n"
+msgstr ""
+"\n"
+"bitsafe-mount-storage <opzioni>\n"
+"\n"
+"Monta la partizione di memorizzazione (se presente), richiedendone\n"
+"la password per la decifratura.\n"
+"Può funzionare sia in modo grafico che testuale. La modalità\n"
+"graica è attiva di default se la script non è lanciata in modo\n"
+"interattivo e la variabile d'ambiente DISPLAY è settata.\n"
+"Si può forzare la modalità con le opzioni.\n"
+"\n"
+"Opzioni:\n"
+"        -m <mountp>     Monta nella posizione indicata, ignorando\n"
+"                        il default\n"
+"        -g              Forza la modalità grafica\n"
+"        -t              Forza la modalità testuale\n"
+"        -q              Silenzia tutto l'output\n"
+"        -h              Questo aiuto\n"
+
+
+#: /lib/strings/bitsafe-mount-storage:20
+msgid "Couldn't get current display."
+msgstr "Non rilevo il display corrente"
+
+#: /lib/strings/bitsafe-mount-storage:22
+msgid "Storage directory is already mounted."
+msgstr "La partizione di memorizzazione è già montata."
+
+#: /lib/strings/bitsafe-mount-storage:24
+msgid ""
+"No storage partition found. You can setup one with\n"
+"the function 'Format Storage'."
+msgstr ""
+"Nessuna partizione di memorizzazione trovata. È possibile crearne\n"
+"una con la funzione 'Formatta Storage'."
+
+#: /lib/strings/bitsafe-mount-storage:27
+msgid "Enter Password"
+msgstr "Immetti la Password"
+
+#: /lib/strings/bitsafe-mount-storage:28
+msgid "Please enter the password to decipher persistent storage partition:"
+msgstr "Prego immettere la password per decifrare la partizione\n"
+"di memorizzazione."
+
+#: /lib/strings/bitsafe-mount-storage:29
+msgid "User cancelled"
+msgstr "Cancellato dall'utente"
+
+#: /lib/strings/bitsafe-mount-storage:31
+msgid ""
+"Could not decipher the storage partition!\n"
+"Possibile reasons:\n"
+"* The partition cration was stopped.\n"
+"* You powered off or unplugged the drive in a bad moment.\n"
+"* The USB drive got broken or corrupt.\n"
+"* Someone or something messed with your USB drive.\n"
+"\n"
+"If you can't go past this point even after a reboot, then you\n"
+"probably lost everything you had on the storage partition,\n"
+"including the bitcoin wallet. Oh snaps! You've got a\n"
+"backup, don't you?\n"
+"\n"
+"You can reset the storage with the function Format Storage\n"
+"in the system menu."
+msgstr ""
+"Non è possibile decifrare la partizione di memorizzazione!\n"
+"Possibili motivi:\n"
+"* La formattazione è stata interrotta.\n"
+"* Il PC è stato arrestato malamente in un brutto momento.\n"
+"* qualcuno o qualcosa ha alterato il dispositivo USB.\n"
+"\n"
+"Se non riesci ad andare oltre questo errore nemmeno dopo un\n"
+"reboot, allora probabilmente qualcunque cosa contenuta nella\n"
+"chiavetta è persa. Ma hai un backup, vero?\n"
+"\n"
+"È possibile resettare la partizione di memorizzazione con la\n"
+"funzione 'Formatta Storage' presente nel menù di sistema."
+
+#: /lib/strings/bitsafe-mount-storage:47
+msgid ""
+"It looks like you don't remember the password.\n"
+"If you forgot it, there's nothing you can do to recover\n"
+"your data. If you have a backup, you can wipe the\n"
+"storage partition and enter a new password.\n"
+"If you haven't a backup... Well, you should have thought\n"
+"before.\n"
+"\n"
+"The command to wipe the storage partition is Format Storage,\n"
+"located in the system menu"
+msgstr ""
+"troppi errori di password.\n"
+"Se la password è stata dimenticata, non c'è modo di\n"
+"ripristinarla. Se hai un backup puoi resettare la partizione\n"
+"di memorizzazione e inserire una nuova password.\n"
+"Se non hai un backup... Beh, avresti dovuto pensarci prima.\n"
+"\n"
+"Il comando per resettare la partizione di memorizzazione è\n"
+"'Formatta Storage', che si trova nel menu di sistema."
+
+#: /lib/strings/bitsafe-mount-storage:57
+msgid "Storage partition already uncrypted and mapped, skipping decrypting"
+msgstr "La partizione di memorizzazione è già decifrata, salto decifratura."
+
+#: /lib/strings/bitsafe-mount-storage:58
+msgid "First mount try failed. Forcing fsck."
+msgstr "Primo tentativo di mount fallito. Forzo fsck."
+
+#: /lib/strings/bitsafe-mount-storage:60
+#, sh-format
+msgid ""
+"I managed to decipher the storage partition, but the mount\n"
+"failed even after a fsck.\n"
+"This can have happened due to an improper shutdown. Be happy,\n"
+"there is a good chance that you'll be able to recover your\n"
+"wallet.dat file.\n"
+"\n"
+"I'm leaving the partition uncrypted, the path is %s.\n"
+"Copy it on some media and hand it over to some nerd who knows\n"
+"how to extract data from damaged ext4 file system, if you\n"
+"can't do it yourself. Good luck! :)"
+msgstr ""
+"Ho decifrato la partizione di storage, ma il mount ha fallito\n"
+"anche dopo un fsck. Ciò può essere dovuto ad un arresto improprio.\n"
+"Allegro, ci sono buone possibilità che tu possa recuperare il tuo\n"
+"file portafolgio (wallet.dat).\n"
+"\n"
+"Lascio la partizione decifrata, la posizione è %s.\n"
+"Copialo su qualche supporto e dallo a qualche nerd che sa come\n"
+"Recuperare dati da un file system ext4 corrotto, se non lo sai\n"
+"fare. Buona fortuna! :)"
+
+#: /lib/strings/bitsafe-mount-storage:71
+msgid "Mount failed for an unknown error. Please try mounting manually."
+msgstr "Il mount è fallito per ragioni sconosciute. Prova manualmente."
+
+#: /lib/strings/bitsafe-mount-storage:72
+msgid "Storage partition active"
+msgstr "Storage attivo"
+
+#: /lib/strings/bitsafe-mount-storage:73
+msgid "Persistent storage has been deciphered and mounted."
+msgstr "La partizione di memorizzazione è stata decifrata e montata."
+
+#: /lib/strings/bitsafe-umount-storage:2
+msgid ""
+"\n"
+"bitsafe-umount-storage <options>\n"
+"\n"
+"Umounts the persistent partition storage and closes the luks\n"
+"mapping, securing it.\n"
+"Can work both in graphical and terminal mode. The Graphical mode\n"
+"is enabled by default if the script is launched not interactively\n"
+"and the display environment variable is defined. You can change\n"
+"this with option flags.\n"
+"\n"
+"Options:\n"
+"        -u      Unmount, but skip unmapping (leave crypted partition "
+"uncrypted)\n"
+"        -g      Forces GUI behavior\n"
+"        -t      Forces terminal-style behavior\n"
+"        -q      Suppress all output\n"
+"        -h      this help\n"
+msgstr ""
+"\n"
+"bitsafe-umount-storage <opzioni>\n"
+"\n"
+"Smonta la partizione di memorizzazione e chiude il mapping\n"
+"luks, mettendola in sicurezza.\n"
+"Può funzionare sia in modo grafico che testuale. La modalità\n"
+"graica è attiva di default se la script non è lanciata in modo\n"
+"interattivo e la variabile d'ambiente DISPLAY è settata.\n"
+"Si può forzare la modalità con le opzioni.\n"
+"\n"
+"Opzioni:\n"
+"        -u      Smonta ma non chiudere il mapping (lascia la\n"
+"		 Partizione decifrata.\n"
+"        -g      Forza modalità grafica\n"
+"        -t      Forza modalità testuale\n"
+"        -q      Silenzia tutto l'output\n"
+"        -h      Questo aiuto\n"
+
+
+#: /lib/strings/bitsafe-umount-storage:20
+msgid "Error while unmounting storage."
+msgstr "Errore durante l'unmounting della partizione di memorizzazione."
+
+#: /lib/strings/bitsafe-umount-storage:22
+#, sh-format
+msgid ""
+"The storage partition is in use by these programs:\n"
+"%s\n"
+"Close them before trying to unmount."
+msgstr "La partizione di memorizzazione è in uso da:\n"
+"%s\n"
+"Chiudi i programmi riportati sopra per smontare."
+
+#: /lib/strings/bitsafe-umount-storage:26
+msgid "Storage partition is not mounted."
+msgstr "La partizione di memorizzazione non è montata."
+
+#: /lib/strings/bitsafe-umount-storage:27
+#, sh-format
+msgid "Error while unmounting storage mounted in %s"
+msgstr "Errore durante l'unmouunting dell partizione montata in %s"
+
+#: /lib/strings/bitsafe-umount-storage:28
+#, sh-format
+msgid "Error while closing luks device %s"
+msgstr "Errore mentre chiudevo il dispositivo luks %s"
+
+#: /lib/strings/bitsafe-umount-storage:29
+msgid "Storage partition deactivated"
+msgstr "Storage disattivato"
+
+#: /lib/strings/bitsafe-umount-storage:30
+msgid "Persistent storage has been unmounted and secured."
+msgstr "La partizione di memorizzazione è stata smontata e messa in sicurezza."
+
+#: /usr/bin/storage_wrappers/bitcoin:2
+msgid "Bitcoin is starting up"
+msgstr "Avvio di bitcoin in corso"
+
+#: /usr/bin/storage_wrappers/bitcoin:3
+msgid ""
+"Bitcoin is starting for the first time on this media.\n"
+"It will take some time to build up its environment, please wait..."
+msgstr ""
+"Bitcoin è stato avviato per la prima volta su questo dispositivo.\n"
+"Ci vorrà del tempo per costruirne l'ambiente di lavoro, attendere..."
+
