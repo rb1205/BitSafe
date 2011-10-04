@@ -1,0 +1,95 @@
+#!/bin/bash
+
+. /lib/bitsafe-func
+
+CYCLE_PERIOD=10
+
+UMOUNT_TIME=0
+
+NAME=bitsafe-autoumounterd
+LOGFILE=/var/log/$NAME.log
+PIDFILE=/var/run/$NAME.pid
+
+if [ $(id -u) != "0" ]; then
+    echo "This script requires superuser privileges. Try using sudo." >&2
+    exit 1
+fi
+
+while getopts “dl:p:” OPTION
+do
+        case $OPTION in
+        d)
+                DETACH=1
+                ;;
+	l)
+		LOGFILE="$OPTARG"
+		;;
+        esac
+done
+
+echo $$ >$PIDFILE 
+if [ $? -ne 0 ]; then
+	error "Can't open PID file";  
+	exit 1
+fi
+touch $LOGFILE 
+if [ $? -ne 0 ]; then
+        error "Can't open logfile";
+        exit 1
+fi
+
+logline () {
+	echo `date +%Y/%m/%d-%H:%M:%S`" - $@"
+}
+
+exit_daemon () {
+	logline "INT signal caught. Exiting..."
+	test -f $PIDFILE && rm $PIDFILE
+	exit 0
+}
+
+do_monitor () {
+trap "exit_daemon" SIGINT SIGTERM
+logline "Service started."
+while [ 1 ]; do
+	if storage_mounted && [ $BITSAFE_STORAGE_AUTOUMOUNT -ne 0 ]; then
+		IN_USE=
+		if [ -d $BITSAFE_STORAGEUSERS_PID ] && [ "`ls $BITSAFE_STORAGEUSERS_PID/`" ]; then
+			PIDS=`ps -Ao "pid"`
+			for file in $BITSAFE_STORAGEUSERS_PID/* ; do
+				PID=`cat $file`
+				if [ "`echo "$PIDS" | grep $PID`" ]; then 
+					IN_USE=1
+					break
+				else rm $file; fi
+			done
+		fi
+		if [ "$IN_USE" ] && [ $UMOUNT_TIME -ne 0 ]; then
+			logline "Storage is in use. Umount cancelled."
+			UMOUNT_TIME=0
+		elif [ $UMOUNT_TIME -eq 0 ]; then
+			logline "Storage partition is not marked as used by anyone. It will be unmounted in about $BITSAFE_STORAGE_AUTOUMOUNT seconds."
+			UMOUNT_TIME=`date +%s`
+		fi
+		if [ $UMOUNT_TIME -ne 0 ]; then
+			let UMOUNT_PASSED_TIME=`date +%s`-$UMOUNT_TIME
+			if [ $UMOUNT_PASSED_TIME -gt $BITSAFE_STORAGE_AUTOUMOUNT ]; then
+				logline "Idle time reached. Umounting..."
+				RET=`bitsafe-umount-storage 2>&1`
+				[ "$RET" ] && logline "$RET"
+			fi
+		fi
+	else
+		UMOUNT_TIME=0 #Time needed to mount and start a program
+	fi
+	sleep $CYCLE_PERIOD
+done
+}
+
+if [ "$DETACH" ]; then
+	do_monitor >$LOGFILE 2>&1 &
+	echo $! >$PIDFILE
+else
+	do_monitor 2>&1 | tee $LOGFILE
+fi
+

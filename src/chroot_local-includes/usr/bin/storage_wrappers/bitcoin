@@ -1,0 +1,8 @@
+if [ ! -e $WRAPPER_HOMEDIR/wallet.dat ]; then
+	TITLE="`gettext \"Bitcoin is starting up\"`"
+	MSG="`gettext \"Bitcoin is starting for the first time on this media.
+It will take some time to build up its environment, please wait...\"`"
+	notify-send -u normal -t 16000 -i bitcoin "$TITLE" "$MSG"
+fi
+
+$WRAPPER_ORIGINALBIN -datadir=$WRAPPER_HOMEDIR -nolisten $*	

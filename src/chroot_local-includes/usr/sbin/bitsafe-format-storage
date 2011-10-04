@@ -1,0 +1,162 @@
+#!/bin/bash
+# Bitsafe - Persistent storage formatting utility
+# Copyright (C) 2011 Riccardo Belloli
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+. /lib/bitsafe-func
+
+check_su 
+
+. /lib/strings/bitsafe-format-storage
+
+TEMP_CRYPT_NAME=bitsafe_storage_temp
+DECRPATH=/dev/mapper/$TEMP_CRYPT_NAME
+
+
+function usage () {
+        echo $MSG_FORMAT_USAGE
+}
+
+while getopts “u” OPTION
+do
+        case $OPTION in
+        u)
+		DO_NOT_UNMAP="-u"
+                ;;
+	h)
+		usage
+		exit
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+done
+
+
+notify \
+"-----------------------------------------------------------------------------
+$COLOR_GRE                        ""$MSG_FORMAT_HEADER""$COLOR_NET"
+
+find_drive
+
+bitsafe-umount-storage -q 
+
+if [[ $? -ne 0 ]] || storage_mounted ; then
+	warning "$MSG_FORMAT_NOUMOUNT"
+	quit 1
+fi
+
+LIVE_DEVICE="$DRIVE"1
+CRYPT_DEVICE=/dev/"$DRIVE"2
+
+#Check if I have a storage partition or not
+if [ -e $CRYPT_DEVICE ]; then
+        warning "$MSG_FORMAT_THERESTO"
+        read sec
+        if [[ "$sec" != "YES" ]]; then exit 1; fi
+        prstatus "$( printf "$MSG_FORMAT_DELPAR" "$CRYPT_DEVICE" )"
+        parted /dev/$DRIVE rm 2 || critical_error "$MSG_FORMAT_ERRDEL"
+	NEW_DRIVE=false
+else
+        notify "$MSG_FORMAT_NOSTO"
+        while [ 1 ]; do
+                read -p "$MSG_FORMAT_CONT" ans
+                if [ $ans = "n" ]; then exit; fi
+                if [ $ans = "y" ]; then break; fi
+        done
+	NEW_DRIVE=true
+fi
+
+#Check size
+prstatus "$MSG_FORMAT_CHKSPC"
+DRIVE_SIZE_BLOCKS=`cat /proc/partitions | grep -w $DRIVE | egrep -ow "[0-9]{4,15}"`
+PART1_SIZE_BLOCKS=`cat /proc/partitions | grep -w "$DRIVE"1 | egrep -ow "[0-9]{4,15}"`
+let FREE_SIZE_MB=($DRIVE_SIZE_BLOCKS*1024-$PART1_SIZE_BLOCKS*1024)/1000000
+if [ $FREE_SIZE_MB -lt $BITSAFE_MIN_FREE ]; then
+        let MIN_SIZE=($PART1_SIZE_BLOCKS*1024+$BITSAFE_MIN_FREE*1000000)/1000000000+1
+        critical_error "$( printf "$MSG_FORMAT_KEYSMALL" "$MIN_SIZE" )"
+fi
+
+#Create partition
+FIRST_PART=`parted /dev/$DRIVE print | egrep -ow -m 1 "[0-9]+MB " | egrep -o -m 1 "[0-9]+"`
+PART_BEGIN=$FIRST_PART
+if [[ $BITSAFE_STORAGE_LIMIT == "true" ]]; then
+        let PART_END=$BITSAFE_MIN_FREE+$PART_BEGIN
+else
+        let PART_END=$DRIVE_SIZE_BLOCKS*1024/1000000
+fi
+prstatus "$( printf "$MSG_FORMAT_MKPART" "$DRIVE" "$PART_BEGIN" "$PART_END" )"
+parted /dev/$DRIVE mkpart primary $PART_BEGIN $PART_END || \
+  critical_error "$MSG_FORMAT_PARTEDERR"
+PART2_SIZE_BLOCKS=`cat /proc/partitions | grep -w "$DRIVE"2 | egrep -ow "[0-9]{4,15}"`
+test -z "$PART2_SIZE_BLOCKS" && critical_error "$MSG_FORMAT_PARTNODEC"
+
+#Fill with random data
+if ([[ "$NEW_DRIVE" == "true" ]] && [[ "$BITSAFE_STORAGE_RANDOMIZE_NEW" == "true" ]]) || [[ "$BITSAFE_STORAGE_RANDOMIZE" == "true" ]] ; then
+        prstatus "$( printf "$MSG_FORMAT_FILLING" "$BITSAFE_STORAGE_RANDOMIZE_SRC" )"
+        comment "$MSG_FORMAT_FILLTIME"
+	let PART2_SIZE_B=($PART2_SIZE_BLOCKS)*1024
+	let PART2_SIZE_MB=$PART2_SIZE_B/1000000
+	dd if="$BITSAFE_STORAGE_RANDOMIZE_SRC" bs=1000000 skip=1000 count="$PART2_SIZE_MB" status=noxfer | \
+	  pv -pers "$PART2_SIZE_B" >$CRYPT_DEVICE
+        if [ $? -ne 0 -a $? -ne 1 ]; then critical_error "$MSG_FORMAT_DDERR"; fi
+fi
+
+#Set up encryption
+prstatus "$MSG_FORMAT_SETENCR"
+notify "$MSG_FORMAT_ENTPASS"
+while [ 1 ]; do
+	keyboard_command cryptsetup -qy luksFormat $CRYPT_DEVICE
+	if [ $? -eq 0 ]; then break; fi
+done
+
+#Format partition
+prstatus "$MSG_FORMAT_REENTPASS"
+keyboard_command cryptsetup luksOpen $CRYPT_DEVICE "$BITSAFE_STORAGE_MAPNAME" || critical_error "$MSG_FORMAT_DECRERR"
+DECRPATH=/dev/mapper/$BITSAFE_STORAGE_MAPNAME
+prstatus "$MSG_FORMAT_FORMTIME"
+mkfs -t ext4 -q $DECRPATH
+if [ $? -ne 0 ]; then
+	bitsafe-umount-storage -q
+	critical_error "$MSG_FORMAT_FORMERR"
+fi
+
+#Mount the partition
+test -e $BITSAFE_STORAGE_MOUNTPOINT || mkdir -p $BITSAFE_STORAGE_MOUNTPOINT
+mount $DECRPATH $BITSAFE_STORAGE_MOUNTPOINT
+if [ $? -ne 0 ]; then
+	bitsafe-umount-storage -q
+        critical_error "$MSG_FORMAT_MOUNTERR"
+fi
+
+#Setting up permissions
+chown 1000:1000 $BITSAFE_STORAGE_MOUNTPOINT
+CHOWN_RETCODE=$?
+chmod 700 $BITSAFE_STORAGE_MOUNTPOINT
+CHMOD_RETCODE=$?
+if [ $CHOWN_RETCODE -ne 0 ] || [ $CHMOD_RETCODE -ne 0 ]; then
+	bitsafe-umount-storage -q
+        critical_error "$MSG_FORMAT_PERMERR"
+fi
+
+bitsafe-umount-storage -q $DO_NOT_UNMAP
+
+notify "\n$COLOR_GRE ""$MSG_FORMAT_SUCC"" $COLOR_NET
+----------------------------------------------"
+
+quit 0

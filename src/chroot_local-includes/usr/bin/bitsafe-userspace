@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gconftool --set --type bool /desktop/gnome/lockdown/disable_user_switching true
+ #sudo bitsafe-mount-storage-helper

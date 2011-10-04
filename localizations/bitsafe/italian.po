@@ -79,7 +79,6 @@ msgstr ""
 "Se continua a ripresentarsi, può essere necessario riavviare bitsafe."
 
 #: /lib/strings/bitsafe-format-storage:19
-#, sh-format
 msgid ""
 "It appears that there's already a storage partition on this disk.\n"
 "After the format, everything you have on the storage partition is going\n"
@@ -106,7 +105,6 @@ msgstr ""
 "Scrivi yes in maiuscolo per continuare con la formattazione."
 
 #: /lib/strings/bitsafe-format-storage:30
-#, sh-format
 msgid "* Deleting partition %s"
 msgstr "* Cancello la partizione %s"
 
@@ -136,7 +134,6 @@ msgid "* Checking available space"
 msgstr "* Controllo lo spazio disponibile"
 
 #: /lib/strings/bitsafe-format-storage:43
-#, sh-format
 msgid ""
 "The device you are running bitsafe from is too small.\n"
 "It needs at least %s GB of storage space."
@@ -145,7 +142,6 @@ msgstr ""
 "Deve avere almeno %s GB disponibili."
 
 #: /lib/strings/bitsafe-format-storage:46
-#, sh-format
 msgid "* Creating a partition on %s from %s MB to %s MB"
 msgstr "* Creo una partizione su %s da %s MB a %s MB"
 
@@ -165,7 +161,6 @@ msgstr ""
 "La partizione è stata creata, ma l'OS non la rileva. Prova a riavviare."
 
 #: /lib/strings/bitsafe-format-storage:49
-#, sh-format
 msgid "* Filling the storage partition with random data from %s"
 msgstr "* Riempio la partizione di memorizzazione con dati casuali da %s"
 
@@ -377,19 +372,18 @@ msgstr "La partizione di memorizzazione è già decifrata, salto decifratura."
 msgid "First mount try failed. Forcing fsck."
 msgstr "Primo tentativo di mount fallito. Forzo fsck."
 
-#: /lib/strings/bitsafe-mount-storage:60
-#, sh-format
+#: /lib/strings/bitsafe-mount-storage:59
 msgid ""
 "I managed to decipher the storage partition, but the mount\n"
 "failed even after a fsck.\n"
-"This can have happened due to an improper shutdown. Be happy,\n"
-"there is a good chance that you'll be able to recover your\n"
-"wallet.dat file.\n"
+"This can have happened due to an improper shutdown. Be\n"
+"happy, there is a good chance that you'll be able to \n"
+"recover your wallet.dat file.\n"
 "\n"
 "I'm leaving the partition uncrypted, the path is %s.\n"
-"Copy it on some media and hand it over to some nerd who knows\n"
-"how to extract data from damaged ext4 file system, if you\n"
-"can't do it yourself. Good luck! :)"
+"Copy it on some media and hand it over to some nerd who \n"
+"knows how to extract data from damaged ext4 file system, \n"
+"if you can't do it yourself. Good luck! :)"
 msgstr ""
 "Ho decifrato la partizione di storage, ma il mount ha fallito\n"
 "anche dopo un fsck. Ciò può essere dovuto ad un arresto improprio.\n"
@@ -457,7 +451,6 @@ msgid "Error while unmounting storage."
 msgstr "Errore durante l'unmounting della partizione di memorizzazione."
 
 #: /lib/strings/bitsafe-umount-storage:22
-#, sh-format
 msgid ""
 "The storage partition is in use by these programs:\n"
 "%s\n"
@@ -471,12 +464,10 @@ msgid "Storage partition is not mounted."
 msgstr "La partizione di memorizzazione non è montata."
 
 #: /lib/strings/bitsafe-umount-storage:27
-#, sh-format
 msgid "Error while unmounting storage mounted in %s"
 msgstr "Errore durante l'unmouunting dell partizione montata in %s"
 
 #: /lib/strings/bitsafe-umount-storage:28
-#, sh-format
 msgid "Error while closing luks device %s"
 msgstr "Errore mentre chiudevo il dispositivo luks %s"
 

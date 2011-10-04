@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Removeuseless kernell modules
+
+rm -Rf /lib/modules/*/kernel/drivers/isdn
+rm -Rf /lib/modules/*/kernel/drivers/media

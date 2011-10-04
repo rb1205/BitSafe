@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#remove the menuitems from X and gdm. They're mostly useless for what we need.
+rm /var/lib/menu-xdg/applications/menu-xdg/*
+rm /usr/share/gdm/applications/*
+
+
+rm /usr/share/applications/openbox.desktop
+

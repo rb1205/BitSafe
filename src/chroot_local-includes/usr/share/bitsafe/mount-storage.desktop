@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Mount storage
+Name[it]=Monta storage
+Comment=Mounts the persistent storage partition, if any.
+Comment[it]=Monta la partizione di memorizzazione, se presente.
+Exec=sudo bitsafe-mount-storage
+Terminal=false
+Type=Application
+Icon=changes-allow
+Encoding=UTF-8
+Categories=System

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Format storage
+Name[it]=Formatta storage
+Comment=Creats and formats the persistent storage partition on the current USB drive.
+Comment[it]=Crea e formatta la partizione di memorizzazione sul dispositivo attuale
+Exec=sudo bitsafe-format-storage
+Terminal=true
+Type=Application
+Icon=reload
+Encoding=UTF-8
+Categories=System

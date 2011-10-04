@@ -1,0 +1,7 @@
+cache/
+config/
+chroot/
+binary/
+.stage/
+binary.*
+log

@@ -1,0 +1,181 @@
+#!/bin/sh
+# Bitsafe - Miscellaneous functions
+# Copyright (C) 2011 Riccardo Belloli
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+BITSAFE_LIVE_MOUNTPOINT="/live/image"
+BITSAFE_STORAGE_MOUNTPOINT="/storage"
+BITSAFE_STORAGE_MAPNAME="bitsafe_storage"
+
+BITSAFE_STORAGEUSERS_PID="/tmp/storageusers-pid"
+
+export TEXTDOMAIN=bitsafe
+
+. /lib/sh_color
+
+. /etc/bitsafe.conf
+
+. /lib/strings/bitsafe-func
+
+storage_mounted () {
+#return true if the mount point is mounted with the storage partition.
+#It does NOT check that the mountpoint is free, nor that the maped device
+#is not mounted elsewere.
+
+	if [ "`mount | grep -w "$BITSAFE_STORAGE_MOUNTPOINT" | grep -w "/dev/mapper/$BITSAFE_STORAGE_MAPNAME"`" ]; then return 0
+	else return 1
+	fi
+}
+
+keyboard_command () {
+#usage: keyboard_command <command>
+#Opens the keyboard for the given command and close it as the command exits
+if [ "$DISPLAY" ]; then
+	matchbox-keyboard >/dev/null 2>&1 &
+        KEY_PID=$!
+	"$@"
+	RETCODE=$?
+	test -n "$KEY_PID" && kill $KEY_PID >/dev/null 2>&1 
+	wait "$KEY_PID" >/dev/null 2>&1
+	return $RETCODE
+else
+	"$@"
+	return $?
+fi
+}
+
+start_persistent_command () {
+#Starts the given command only after chacking that storage is mounted and
+#calls the mount helper if it isn't.
+#Adds the PID of the caller process in the PID of storage users and removes
+#it as soon as the command exits.
+	if [ "$DISPLAY" ] && [ ! -t 1 ]; then GUI_MODE=1; fi
+
+	if ! storage_mounted; then
+		if [ $BITSAFE_STORAGE_MOUNTONDEMAND = "true" ]; then
+			sudo bitsafe-mount-storage-helper >/dev/null
+		else 
+			error "$MSG_NEEDSTOR"; fi
+	fi
+	if storage_mounted; then
+		PIDFILE=$BITSAFE_STORAGEUSERS_PID/$1.$$
+		test -e $BITSAFE_STORAGEUSERS_PID || mkdir $BITSAFE_STORAGEUSERS_PID >/dev/null
+		test -d $BITSAFE_STORAGEUSERS_PID && echo "$$" >$PIDFILE
+		"$@"
+		RETCODE=$?
+		test -f $PIDFILE && rm $PIDFILE >/dev/null
+		return $RETCODE
+	else
+		return 1
+	fi
+}
+		
+comment () {
+	test "$QUIET" && return 0
+	echo -e "$COLOR_COM""$*""$COLOR_NET"
+}
+
+prstatus () {
+        test "$QUIET" && return 0
+	echo -e "$COLOR_STA""$*""$COLOR_NET" 
+}
+
+notify () {
+        test "$QUIET" && return 0
+        if [ "$GUI_MODE" ]; then
+                zenity --info --text="$1"
+        else
+                echo -e "$COLOR_COM""$1""$COLOR_NET" >&2
+        fi
+}
+
+warning () {
+        test "$QUIET" && return 0
+	if [ "$GUI_MODE" ]; then
+		zenity --warning --text="$1"
+	else
+		echo -e "$COLOR_YEL""$1""$COLOR_NET" >&2
+	fi
+}
+
+error () {
+        test "$QUIET" && return 0
+        if [ "$GUI_MODE" ]; then
+                zenity --error --text="$1"
+        else
+                echo -e "$COLOR_RED""$1""$COLOR_NET" >&2
+	fi
+}
+critical_error () {
+        test "$QUIET" && exit 1
+	if [ "$GUI_MODE" ]; then
+		zenity --error --text="$1"
+	else
+		MSG="$COLOR_RED
+----------------------------------------------------------------------------- $COLOR_BRED
+! ! !                 ""$MSG_CRITERR""                  ! ! ! ! $COLOR_RED
+
+$COLOR_RED $1 $COLOR_NET"
+	        echo -e "$MSG">&2
+	fi
+	quit 1
+}
+
+check_su () {
+	if [ $(id -u) != "0" ]; then echo "$MSG_NEEDSU" >&2; exit 1
+	fi
+}
+read_password () {
+	pass=
+	if [ "$GUI_MODE" ]; then
+                pass=`keyboard_command zenity --entry --title="$1" --text="$2" --hide-text`
+		RETCODE=$?
+        	if [ $RETCODE -ne 0 ]; then return $RETCODE; fi
+	else
+		comment "$2" >&2
+                keyboard_command read -s pass
+		RETCODE=$?
+		if [ $RETCODE -ne 0 ]; then return $RETCODE; fi
+	fi
+}
+
+lockscreen_activate () {
+	test -z "$1" && exit 1
+	if storage_mounted; then sudo -u user echo "$1" >/$BITSAFE_STORAGE_MOUNTPOINT/.phash
+	else echo "$1" >/tmp/.phash
+	fi
+	echo "user:$1" | sudo chpasswd -e
+	test -f ~/.xscreensaver && sed -i 's/lock:[ \t]*False/lock:		True/' ~/.xscreensaver
+	# xscreensaver-command -restart
+	return 0
+}
+	
+
+find_drive () {
+	DRIVE=`mount | grep -w "$BITSAFE_LIVE_MOUNTPOINT" | grep -o "sd[a-z]1 " | grep -o "sd[a-z]"`
+	if [ -z "$DRIVE" ] || [ ! -e "/dev/$DRIVE" ]; then critical_error "$MSG_CANTGETDEV"; fi
+}
+
+quit () {
+	if [ -z "$QUIET" ] && [ -t 0 ] && [ -z "$GUI_MODE" ]; then
+		MSG="
+$MSG_ENTTOCONT"
+	        echo "$MSG" >&2
+	        read foo
+	fi
+        exit $1
+}
+
+

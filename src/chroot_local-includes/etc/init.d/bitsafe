@@ -1,0 +1,90 @@
+#!/bin/sh
+# Manages the extensions used by bitsafe
+#
+### BEGIN INIT INFO
+# Provides:          bitsafe
+# Required-Start:    
+# Required-Stop:      
+# Should-Start:      $x-display-manager gdm kdm xdm ldm sdm wdm nodm
+# Should-Stop:       
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Mounts/umounts the storage partition
+# Description:       Mounts/umounts the storage partition 
+#                     
+#                    
+#                    
+### END INIT INFO
+
+. /lib/bitsafe-func
+
+mount_storage () {
+	storage_mounted && return 0
+	test -x /usr/sbin/bitsafe-mount-storage || return
+	echo "Mounting Bitsafe persistent storage partition" 
+	bash -c bitsafe-mount-storage
+}
+
+close_wait_bitcoin () {
+	[ -z "`ps -Al | grep -o bitcoin`" ] && return 0
+	echo "Closing Bitcoin, please wait..."
+	killall -q bitcoin
+	COUNT=0
+	while [ $COUNT -lt 60 ]; do
+		[ -z "`ps -Al | grep bitcoin`" ] && return 0
+		sleep 1
+		COUNT=$((COUNT+1))
+	done
+	echo "Bitcoin is taking too long to close. Terminanting."
+	killall -q -9 bitcoin
+	return 0
+}
+
+umount_wait_storage () {
+        storage_mounted && echo "Unmounting Bitstafe persistent storage partition, please wait..."
+	COUNT=0
+	while [ $COUNT -lt 6 ]; do
+		bitsafe-umount-storage -q && return 0
+		sleep 5 
+		COUNT=$((COUNT+1))
+	done
+	echo "Unmounting is taking too long. aborting." >&2
+	sync
+	return 1
+}
+
+do_start () {
+	if [ $BITSAFE_STORAGE_MOUNTATBOOT = "true" ] && [ ! -e /var/run/bitsafe-autoumounterd.pid ]; then mount_storage; fi
+	test -x /usr/sbin/bitsafe-autoumounterd && /usr/sbin/bitsafe-autoumounterd -d
+}
+
+do_stop () {
+	PIDFILE=/var/run/bitsafe-autoumounterd.pid
+	if [ -f $PIDFILE ]; then
+		PID=`cat PIDFILE`
+		kill $PID >/dev/null 2>&1
+		rm $PIDFILE
+	fi
+	close_wait_bitcoin
+	umount_wait_storage
+}
+
+case "$1" in
+start)	
+	do_start
+	;;
+stop)	
+        do_stop
+	;;
+restart|reload|force-reload)  
+        do_stop
+	do_start
+	;;
+status)
+	storage_mounted
+        ;;
+*)
+	echo "Usage: bitsafe start/stop/restart"
+	;;
+esac
+exit 0

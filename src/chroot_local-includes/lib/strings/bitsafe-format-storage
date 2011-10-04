@@ -1,0 +1,59 @@
+MSG_FORMAT_USAGE="`gettext \
+\"
+bitsafe-format-storage <options>
+
+Creates the storage partition on the current device (if needed), wipes and
+installs a luks volume on it, then formats it with EXT4.
+Options:
+        -u              Leave the cryptdevice mapping when cleaning
+        -h              this help
+\"`"
+
+MSG_FORMAT_HEADER="`gettext \"BITSAFE FORMAT STORAGE TOOL\"`"
+MSG_FORMAT_NOUMOUNT="`gettext \
+\"I can't unmount the storage partition. Please make sure that bitcoin,
+ssh and gpg are closed, and wait untill the USB drive is idle (the LED 
+stops blinking).
+if this keeps happening, you may have to reboot bitsafe.\"`"
+
+MSG_FORMAT_THERESTO="`gettext \
+\"It appears that there's already a storage partition on this disk.
+After the format, everything you have on the storage partition is going
+to be removed from the disk permanently. This includes the bitcoin wallet
+and the SSH and GPG private keys, be sure you don't have any bitcoin on
+the wallet, and if you do be sure you have a fully functional backup.
+
+Let me put this clear:
+YOU _WILL_ LOSE ALL THE BITCOIN STORED IF YOU DON'T HAVE A BAKUP!!!!
+
+Please enter uppercase yes if you are absolutely sure you want to continue.\"`"
+
+MSG_FORMAT_DELPAR="`gettext \"* Deleting partition %s\"`"
+MSG_FORMAT_ERRDEL="`gettext \"Error while deleting the storage partition. Is the media in read-only mode?\"`"
+MSG_FORMAT_NOSTO="`gettext \
+\"No storage partition found on the current drive.
+If this is the first time you are running BitSafe from this device
+there's nothing you should be worried about, and you can safely continue.\"`"
+
+MSG_FORMAT_CONT="`gettext \"You wish to continue? (y/n)\"`"
+MSG_FORMAT_CHKSPC="`gettext \"* Checking available space\"`"
+MSG_FORMAT_KEYSMALL="`gettext \
+\"The device you are running bitsafe from is too small.
+It needs at least %s GB of storage space.\"`"
+
+MSG_FORMAT_MKPART="`gettext \"* Creating a partition on %s from %s MB to %s MB\"`"
+MSG_FORMAT_PARTEDERR="`gettext \"Partition creator (parted) returned error! Is the device set on read-only mode perhaps?\"`"
+MSG_FORMAT_PARTNODEC="`gettext \"The partition was created but the OS doesn't detect it. Try to reboot and retry.\"`"
+MSG_FORMAT_FILLING="`gettext \"* Filling the storage partition with random data from %s\"`"
+MSG_FORMAT_FILLTIME="`gettext \"This can take up to 20 minutes, please wait...\"`"
+MSG_FORMAT_DDERR="`gettext \"Error while filling data with dd. Looks like your storage device is broken.\"`"
+MSG_FORMAT_SETENCR="`gettext \"* Setting up encryption\"`"
+MSG_FORMAT_ENTPASS="`gettext \"Please enter the new password for the crypted storage.\"`"
+MSG_FORMAT_REENTPASS="`gettext \"Please re-enter the password to proceed with the format.\"`"
+MSG_FORMAT_DECRERR="`gettext \"Failed to decrypt the storage partition.\"`"
+MSG_FORMAT_FORMTIME="`gettext \"* Decrypted. Launching format. This can take up to few minutes, please wait...\"`"
+MSG_FORMAT_FORMERR="`gettext \"Format returned error! Probably something is wrong with your storage device.\"`"
+MSG_FORMAT_MOUNTERR="`gettext \"Can\'t remount the formatted partition!!! USB issue?\"`"
+MSG_FORMAT_PERMERR="`gettext \"Error while setting up the partition permissions. Really a weird error.\"`"
+MSG_FORMAT_SUCC="`gettext \"Creation succesful!\"`"
+

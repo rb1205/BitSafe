@@ -1,0 +1,25 @@
+
+[Added Associations]
+image/bmp=gpicview.desktop;
+image/gif=gpicview.desktop;
+image/jpeg=gpicview.desktop;
+image/pjpeg=gpicview.desktop;
+image/png=gpicview.desktop;
+image/svg+xml=gpicview.desktop;
+image/tiff=gpicview.desktop;
+text/html=iceweasel.desktop;
+text/javascript=iceweasel.desktop;
+text/cmd=leafpad.desktop;
+application/x-sh=leafpad.desktop;
+text/css=leafpad.desktop;
+text/csv=leafpad.desktop;
+text/plain=leafpad.desktop;
+text/xml=leafpad.desktop;
+application/x-gzip=xarchiver.desktop;
+application/x-gtar=xarchiver.desktop;
+application/x-tar=xarchiver.desktop;
+application/x-rar-compressed=xarchiver.desktop;
+application/zip=xarchiver.desktop;
+multipart/x-gzip=xarchiver.desktop;
+multipart/x-zip=xarchiver.desktop;a
+

@@ -1,0 +1,7 @@
+MSG_NEEDSTOR="`gettext \"You need the persistent storage partition mounted to launch this program.\"`"
+MSG_CRITERR="`gettext \"C R I T I C A L      E R R O R\"`"
+MSG_NEEDSU="`gettext \"This script requires superuser privileges. Try using sudo.\"`"
+MSG_CANTGETDEV="`gettext \
+\"I can't get the device i'm running from. This is really a weird error.
+You should probably reinstall the bitsafe image and start all over.\"`"
+MSG_ENTTOCONT="`gettext \"Press ENTER to continue\"`"

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. /lib/bitsafe-func
+
+if [ "$DISPLAY" ] && [ ! -t 1 ]; then GUI_MODE=1; fi
+
+TITLE="`gettext \"Enter user password\"`"
+MSG="`gettext \
+\"Please enter the user password for the
+screen locking feature.
+It can and it SHOULD be different from
+the secure storage partition password.\"`"
+
+read_password "$TITLE" "$MSG"
+
+[ $? -ne 0 ] && exit $?
+
+PASShash=`echo -n "$pass" | mkpasswd -m sha-512 -s`
+
+lockscreen_activate "$PASShash"

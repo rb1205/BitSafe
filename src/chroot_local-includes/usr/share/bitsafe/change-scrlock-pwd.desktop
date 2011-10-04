@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Set screenlock password
+Comment=Lets the user set the screen lock password.
+Exec=bitsafe-enter-passwd
+Terminal=false
+Type=Application
+Icon=lock
+Encoding=UTF-8
+Categories=System

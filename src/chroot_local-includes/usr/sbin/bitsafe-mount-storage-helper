@@ -1,0 +1,24 @@
+#!/bin/bash
+
+. /lib/bitsafe-func
+
+check_su
+
+find_drive
+CRYPT_DEVICE=/dev/"$DRIVE"2
+
+if [ "$DISPLAY" ]; then GUI_MODE=1; fi
+
+if [ "$DRIVE" ] && [ -e "/dev/$DRIVE" ] && [ ! -e "$CRYPT_DEVICE" ]; then
+	notify "`gettext \
+\"No persistent storage partition found.
+I will now start the BitSafe storage format utility.\"`"
+	if [ "$DISPLAY" ]; then
+		lxterminal -e /usr/sbin/bitsafe-format-storage -u || exit $?
+	else
+		/usr/sbin/bitsafe-format-storage -u || exit $?
+	fi
+fi
+	
+/usr/sbin/bitsafe-mount-storage
+

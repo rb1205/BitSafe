@@ -1,0 +1,26 @@
+#!/bin/bash
+
+. /lib/bitsafe-func
+
+process_wrapper ()
+{
+        export WRAPPER_BINNAME=`basename $0`
+        export WRAPPER_ORIGINALBIN=/usr/bin/wrapped_bin/$WRAPPER_BINNAME
+	export WRAPPER_HOMEDIR=$BITSAFE_STORAGE_MOUNTPOINT/$WRAPPER_BINNAME
+	
+	test -e $WRAPPER_HOMEDIR || mkdir $WRAPPER_HOMEDIR >/dev/null 
+
+        if [ -x /usr/bin/wrapped_bin/$WRAPPER_BINNAME.wrp ]; then
+                /usr/bin/wrapped_bin/$WRAPPER_BINNAME.wrp $*
+                return $?
+        elif [ -x $WRAPPER_ORIGINALBIN ]; then
+        	$WRAPPER_ORIGINALBIN $*
+                return $?
+	else
+		exit  1
+        fi
+}
+	
+
+start_persistent_command process_wrapper $*
+exit $?

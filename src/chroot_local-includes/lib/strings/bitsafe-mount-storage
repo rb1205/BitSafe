@@ -1,0 +1,73 @@
+MSG_USAGE="`gettext \
+\"
+bitsafe-mount-storage <options>
+
+Mounts the persistent storage partition (if any), requesting the
+partition password.
+Can work both in graphical and terminal mode. The Graphical mode
+is enabled by default if the script is launched not interactively
+and the display environment variable is defined. You can change
+this with option flags.
+
+Options:
+        -m <mountp>     Mounts in a given mountpoint, overriding default
+        -g              Forces GUI behavior
+        -t              Forces terminal-style behavior
+        -q              Suppress all output
+        -h              this help
+\"`"
+
+MSG_NODISPLAY="`gettext \"Couldn't get current display.\"`"
+MSG_STORMOUNT="`gettext \"Storage directory is already mounted.\"`"
+MSG_NOSTOR="`gettext \
+\"No storage partition found. You can setup one with
+the function 'Format Storage'.\"`"
+
+MSG_ENTERPASS="`gettext \"Enter Password\"`"
+MSG_ENTERPASSTXT="`gettext \"Please enter the password to decipher persistent storage partition:\"`"
+MSG_USERCANC="`gettext \"User cancelled\"`"
+MSG_CANTDECRYPT="`gettext \
+\"Could not decipher the storage partition!
+Possibile reasons:
+* The partition cration was stopped.
+* You powered off or unplugged the drive in a bad moment.
+* The USB drive got broken or corrupt.
+* Someone or something messed with your USB drive.
+
+If you can't go past this point even after a reboot, then you
+probably lost everything you had on the storage partition,
+including the bitcoin wallet. Oh snaps! You\'ve got a
+backup, don't you?
+
+You can reset the storage with the function Format Storage
+in the system menu.\"`"
+
+MSG_PASSFORG="`gettext \
+\"It looks like you don't remember the password.
+If you forgot it, there's nothing you can do to recover
+your data. If you have a backup, you can wipe the
+storage partition and enter a new password.
+If you haven\'t a backup... Well, you should have thought
+before.
+
+The command to wipe the storage partition is Format Storage,
+located in the system menu\"`"
+
+MSG_ALRDECR="`gettext \"Storage partition already uncrypted and mapped, skipping decrypting\"`"
+MSG_FSCK="`gettext \"First mount try failed. Forcing fsck.\"`"
+MSG_CANTMOUNT="`gettext \
+\"I managed to decipher the storage partition, but the mount
+failed even after a fsck.
+This can have happened due to an improper shutdown. Be
+happy, there is a good chance that you'll be able to 
+recover your wallet.dat file.
+
+I'm leaving the partition uncrypted, the path is %s.
+Copy it on some media and hand it over to some nerd who 
+knows how to extract data from damaged ext4 file system, 
+if you can't do it yourself. Good luck! :)\"`"
+
+MSG_TRYMAN="`gettext \"Mount failed for an unknown error. Please try mounting manually.\"`"
+MSG_NOTIFYTITLE="`gettext \"Storage partition active\"`"
+MSG_NOTIFYMSG="`gettext \"Persistent storage has been deciphered and mounted.\"`"
+

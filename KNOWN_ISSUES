@@ -1,0 +1,5 @@
+
+*  The configuration option to mount the storage partition at boot time does not work
+
+*  Format lets you set up a null-password storage, but mount will fail mounting it.
+

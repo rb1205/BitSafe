@@ -1,0 +1,128 @@
+#!/bin/bash
+# Bitsafe - Persistent storage mount utility
+# Copyright (C) 2011 Riccardo Belloli
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+. /lib/bitsafe-func
+
+check_su
+
+. /lib/strings/bitsafe-mount-storage
+
+function usage () {
+	echo "$MSG_USAGE"
+}
+
+modprobe dm-crypt dm-mod >/dev/null
+
+#GUI MODE is enabled by default if DISPLAY is defined and stout doesn't go to a terminal.
+#disabled otherwise.
+if [ "$DISPLAY" ] && [ ! -t 1 ]; then GUI_MODE=1; fi
+	
+while getopts “m:gtqh?” OPTION
+do
+	case $OPTION in
+	m)
+		DO_NOT_CHECK_MOUNT=1
+		BITSAFE_STORAGE_MOUNTPOINT="$OPTARG"
+		;;
+        g)
+                GUI_MODE=1
+		;;
+        t)
+		GUI_MODE=
+		;;
+	q)
+		QUIET=1
+		;;
+        [h?])
+		usage
+ 		exit
+		;;
+	*)
+		usage
+		exit 1
+		;;
+	esac
+done	
+
+if [ "$GUI_MODE" ] && [ -z "$DISPLAY" ]; then
+	error "$MSG_NODISPLAY" 
+	exit 1
+fi
+
+if storage_mounted; then 
+	error "$MSG_STORMOUNT" 
+	exit 1
+fi 
+
+find_drive
+
+CRYPT_DEVICE=/dev/"$DRIVE"2
+
+if [ ! -e "$CRYPT_DEVICE" ]; then warning "$MSG_NOSTOR"; exit 1; fi
+
+cryptsetup status "$BITSAFE_STORAGE_MAPNAME" 2>&1 >/dev/null
+
+if [ $? -ne 0 ]; then	
+	TRIES=1
+	while [ 1 ]; do
+		read_password "$MSG_ENTERPASS" "$MSG_ENTERPASSTXT"
+		if [ $? -ne 0 ]; then comment "$MSG_USERCANC"; exit 1; fi
+		echo $pass | cryptsetup -T 1 luksOpen "$CRYPT_DEVICE" "$BITSAFE_STORAGE_MAPNAME"
+		RETCODE=$?
+		if [ $RETCODE -eq 0 ]; then break
+		elif [ $RETCODE -ne 255 ] && [ "$pass" ]; then critical_error "$MSG_CANTDECRYPT"
+		fi
+		let TRIES++
+		if [ $TRIES -gt 5 ]; then critical_error "$MSG_PASSFORG"
+		fi
+	done
+
+else comment "$MSG_ALRDECR"
+fi
+
+DECRPATH="/dev/mapper/$BITSAFE_STORAGE_MAPNAME"
+test -e "$BITSAFE_STORAGE_MOUNTPOINT" || mkdir -p "$BITSAFE_STORAGE_MOUNTPOINT"
+mount "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT"
+if [ $? -ne 0 ]; then
+        warning "$MSG_FSCK"
+        fsck.ext4 -pfv "$DECRPATH"
+        mount "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT" || \
+          critical_error "$( printf "$MSG_CANTMOUNT" "$DECRPATH" )"
+fi
+
+if ! storage_mounted && [ -z "$DO_NOT_CHECK_MOUNT" ]; then critical_error "$MSG_TRYMAN"; fi
+
+#Setup environment basis
+chown 1000:1000 "$BITSAFE_STORAGE_MOUNTPOINT"
+
+KEYRINGS_HOME="$BITSAFE_STORAGE_MOUNTPOINT/keyring"
+test -e "$KEYRINGS_HOME" || sudo -u user mkdir -p "$KEYRINGS_HOME"
+
+#Handling the screen lock password.
+if [ -f /tmp/.phash ]; then
+	sudo -u user cp /tmp/.phash $BITSAFE_STORAGE_MOUNTPOINT/.phash && rm /tmp/.phash
+elif [ -f $BITSAFE_STORAGE_MOUNTPOINT/.phash ] && [ ! -f /tmp/.storage-was-mounted ]; then 
+	PASShash=$( cat $BITSAFE_STORAGE_MOUNTPOINT/.phash )
+	lockscreen_activate "$PASShash" && touch /tmp/.storage-was-mounted
+fi
+
+
+if [ "$DISPLAY" ]; then notify-send -u normal -t 8000 -i "changes-allow" "$MSG_NOTIFYTITLE" "$MSG_NOTIFYMSG"
+else notify "$MSG_NOTIFYMSG"
+fi
+
+exit 0

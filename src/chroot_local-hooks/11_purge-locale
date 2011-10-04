@@ -1,0 +1,32 @@
+#/bin/bash
+
+#install localepurge to get rid of useless localization files. It uses the
+#PRECONF_LOCALE list to detect what it should and what it shouldn't remove.
+#It adds en_GB by default."
+
+. /usr/share/bitsafe/bitsafe.build.conf
+
+cd /etc
+
+test -e locale.gen && mv locale.gen locale.gen.no
+
+#BY DEFAULT KEEP MY LANGUAGE AND STANDARD ENGLISH
+touch locale.gen
+
+i=1
+for loc in $PRECONF_LOCALE; do
+	charset=$(echo $PRECONF_CHARSET | awk "{ print \$$i }")
+	echo "$loc $charset">>locale.gen
+	i=$((i+1))
+done
+
+echo "en_GB.UTF-8 UTF-8">>locale.gen
+apt-get --assume-yes install localepurge
+
+localepurge
+
+rm locale.gen
+
+mv locale.gen.no locale.gen
+
+apt-get --assume-yes purge localepurge

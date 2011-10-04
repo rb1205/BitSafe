@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#Sets up wrappers for those applications that need the storage partition in order
+#to run. 
+
+WRAPPERS_DIR="storage_wrappers"
+
+wrap ()
+{
+for alt in *; do
+        if [ -e "../$alt" ]; then
+                test -d ../wrapped_bin || mkdir ../wrapped_bin
+                mv ../$alt ../wrapped_bin
+        else
+                echo "wrapper $alt does not wrap anything"
+        fi
+	if [ `du $alt | egrep -o [0-9]+` -ne 0 ]; then
+		cp $alt ../wrapped_bin/$alt.wrp
+	fi
+
+	ln -s bitsafe-storage-wrapper ../$alt
+	
+		
+	rm $alt 
+done
+cd .. && rm -r $WRAPPERS_DIR
+}
+
+cd /usr/bin/$WRAPPERS_DIR && wrap
+
+exit 0
+
+	

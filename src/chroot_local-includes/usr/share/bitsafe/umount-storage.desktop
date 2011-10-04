@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Unmount storage
+Name[it]=Smonta storage
+Comment=Unmounts the persistent storage partition, if already mounted and not in use.
+Comment[it]=Smonta la partizione di memorizzazione, se montata e non utilizzata.
+Exec=sudo bitsafe-umount-storage
+Terminal=false
+Type=Application
+Icon=changes-prevent
+Encoding=UTF-8
+Categories=System

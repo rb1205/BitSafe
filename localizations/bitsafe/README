@@ -1,5 +1,5 @@
 These are the translations for the scripts used by bitsafe. 
-To add your, you just have to edit the file named "original.po.t", which is automatically generated with the most up-to-date list of translable strings.
+To add yours, you just have to edit the file named "translate.po.original", which is automatically generated with the most up-to-date list of translable strings.
 Once edited (you can have a look to the other translation for reference) you can rename it to something.po and put it here. Remember to add the proper 
 localization string in the file header (en_UK, es_ES, ...), or the build will fail.
 

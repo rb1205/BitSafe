@@ -1,0 +1,108 @@
+#!/bin/bash
+# Bitsafe - Persistent storage umount utility
+# Copyright (C) 2011 Riccardo Belloli
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+. /lib/bitsafe-func
+
+check_su
+
+. /lib/strings/bitsafe-umount-storage
+
+usage () {
+        echo "$MSG_USAGE"
+}
+
+
+#GUI MODE is enabled by default if DISPLAY is defined and stout doesn't go to a terminal.
+#disabled otherwise.
+if [ "$DISPLAY" ] && [ ! -t 1 ]; then GUI_MODE=1; fi
+
+while getopts “uqgth?” OPTION
+do
+        case $OPTION in
+	u)
+		SKIP_UNMAPPING=1
+		;;
+        g)
+                GUI_MODE=1
+                ;;
+        t)
+                GUI_MODE=
+                ;;
+	q)
+		QUIET=1
+		;;
+        [h?])
+                usage
+                exit
+                ;;
+        *)
+                usage
+                exit 1
+                ;;
+        esac
+done
+
+
+find_drive
+STORAGE_DRIVE=/dev/"$DRIVE"2
+
+if [ -n "`mount | grep -w \"$BITSAFE_STORAGE_MOUNTPOINT\" `" ]; then
+	USERS_PROC="`lsof -w $BITSAFE_STORAGE_MOUNTPOINT $BITSAFE_STORAGE_MOUNTPOINT/* | grep -vw COMMAND | awk '{ print \$1 }' | sort | uniq `"
+	if [ "$QUIET" ]; then umount $BITSAFE_STORAGE_MOUNTPOINT >/dev/null 2>&1
+	else umount $BITSAFE_STORAGE_MOUNTPOINT 
+	fi
+	ERRCODE=$?
+	if [ $ERRCODE -ne 0 ]; then	
+		ERRTXT=$MSG_ERRTXT
+		if [ "$USERS_PROC" ]; then
+			ERRTXT="$( printf "$MSG_ERTXTUSAGE" "$USERS_PROC" )"
+		fi
+		error "$ERRTXT"
+		exit $ERRCODE
+	fi
+	WAS_MOUNTED=true
+else
+	comment "$MSG_NOMOUNT"
+fi
+	
+
+cd /dev/mapper
+for i in *; do
+	block_file="/dev/mapper/$i"
+	out=`cryptsetup status $i | grep $STORAGE_DRIVE`
+	if [ -n "$out" ]; then
+		VAR_MOUNTPOINT="`cat /etc/mtab | grep -w $block_file |  egrep -o " /[^ ]*" | egrep -o "/.*"`"
+		VAR_MOUNTPOINT="`echo -e "$VAR_MOUNTPOINT"`"
+		if [ "$VAR_MOUNTPOINT" ]; then 
+		        if [ "$QUIET"]; then umount "$VAR_MOUNTPOINT" >/dev/null 2>&1
+        		else umount "$VAR_MOUNTPOINT"
+        		fi
+			[ $? -ne 0 ] && error "$( printf "$MSG_ERRORUMOUNT" "$VAR_MOUNTPOINT" )"
+		fi
+		if [ -z "$SKIP_UNMAPPING" ]; then
+                	if [ "$QUIET" ]; then cryptsetup luksClose $i >/dev/null 2>&1
+			else cryptsetup luksClose $i
+			fi
+                	[ $? -ne 0 ] && error "$( printf "$MSG_ERRORCRYPT" "$MSG_ERRORCRYPT")"
+		fi
+	fi
+done
+
+if [ $DISPLAY ] && [ $WAS_MOUNTED ]; then notify-send -u normal -t 8000 -i "changes-prevent" "$MSG_NOTIFYTITLE" "$MSG_NOTIFYTXT"; fi
+
+exit 0
+	

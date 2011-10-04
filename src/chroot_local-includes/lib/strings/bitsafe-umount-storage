@@ -1,0 +1,30 @@
+MSG_USAGE="`gettext \
+\"
+bitsafe-umount-storage <options>
+
+Umounts the persistent partition storage and closes the luks
+mapping, securing it.
+Can work both in graphical and terminal mode. The Graphical mode
+is enabled by default if the script is launched not interactively
+and the display environment variable is defined. You can change
+this with option flags.
+
+Options:
+        -u      Unmount, but skip unmapping (leave crypted partition uncrypted)
+        -g      Forces GUI behavior
+        -t      Forces terminal-style behavior
+        -q      Suppress all output
+        -h      this help
+\"`"
+
+MSG_ERRTXT="`gettext \"Error while unmounting storage.\"`"
+MSG_ERTXTUSAGE="`gettext \
+\"The storage partition is in use by these programs:
+%s
+Close them before trying to unmount.\"`"
+
+MSG_NOMOUNT="`gettext \"Storage partition is not mounted.\"`"
+MSG_ERRORUMOUNT="`gettext \"Error while unmounting storage mounted in %s\"`"
+MSG_ERRORCRYPT="`gettext \"Error while closing luks device %s\"`"
+MSG_NOTIFYTITLE="`gettext \"Storage partition deactivated"`"
+MSG_NOTIFYTXT="`gettext \"Persistent storage has been unmounted and secured."`"

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Bitsafe in Userspace
+Comment=Show informations about errors while booting
+Icon=nm-device-wireless
+Exec=bitsafe-userspace
+Terminal=false
+Type=Application

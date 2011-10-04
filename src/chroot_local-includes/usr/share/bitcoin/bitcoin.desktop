@@ -1,0 +1,17 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Bitcoin
+Name[it]=Bitcoin
+Comment=Send and receive the crypto-currency known as Bitcoin
+Comment[it]=Invia e ricevi la crittovaluta nota come Bitcoin
+GenericName=Bitcoin Client
+GenericName[it]=Client Bitcoin
+X-GNOME-FullName=Bitcoin Client
+X-GNOME-FullName[it]=Client Bitcoin
+Exec=bitcoin
+Terminal=false
+Type=Application
+Icon=bitcoin
+Encoding=UTF-8
+Categories=Network
+StartupNotify=true
