@@ -1,5 +1,5 @@
 #!/bin/bash
 
 #Copies the fresh compiled localization source back in the image configuration root
-cp chroot/usr/share/bitsafe/localization.po localizations/bitsafe/translate.po.original
+cp chroot/usr/share/bitsafe/localization.po localizations/bitsafe/localization.po
 
