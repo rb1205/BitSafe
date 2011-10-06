@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# uninstall useless things. Anyone knows how to prevent them to be installed in the first place?
+# Install stuff in bitsafe.build.config
+if [ "$PRECONF_PACKETADD" ]; then apt-get --assume-yes install $PRECONF_PACKETADD; fi
 
-apt-get --assume-yes purge linux-sound-base alsa-utils alsa-base gdm-themes xmms2-core libgstreamer-plugins-base0.10-0 libgstreamer0.10-0 nmap libgl1-mesa-dri dselect exim4-base exim4-config
+# uninstall useless things. Anyone knows how to prevent them to be installed in the first place?
+if [ "$PRECONF_PACKETREM" ]; then apt-get --assume-yes purge $PRECONF_PACKETREM; fi
 
 apt-get --assume-yes autoremove --purge
 apt-get clean
-
-echo $MKSQUASHFS_OPTIONS
 
 exit 0
