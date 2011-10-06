@@ -16,7 +16,7 @@ lb config noauto \
 --debian-installer false \
 --hostname bitsafe \
 --iso-preparer "Debian" \
---iso-application "Bitsafe" \
+--iso-application "BitSafe" \
 --cache-indices true \
 --bootstrap-flavour minimal \
 --apt-recommends disabled \
@@ -28,6 +28,10 @@ lb config noauto \
 # --encryption aes256 \
 
 # I don't need boot parameter, i create a custom menulist for syslinux later on in the build with hooks
+
+# I need non-free repos for firmware-iwlwifi package with firmware for some intel wifi cards
+# If you don't need it, you can remove both the repo from here and the package in 
+# src/chroot_local-packageslists/bitsafe.list
 
 #Copy all source configuration files to config folder
 cp -a src/* config/
