@@ -8,15 +8,17 @@ cd /usr/share/bitsafe/localizations
 
 if [ "`ls`" ]; then
 	for loc in *.po; do
-		LANG_CODE=`cat $loc | egrep -o "^\"Language: [^\"]+\"$" | egrep -o ": [^\\]+" | egrep -o "[^: ]+"`
-		if [ -z "$LANG_CODE" ]; then
-			echo "Localization file $loc miss a proper Language header. I need it in order to place it correctly."
-			exit 1
-		else
-			echo "Adding $LANG_CODE localization..."
-			OUTDIR=/usr/share/locale/$LANG_CODE/LC_MESSAGES
-			mkdir -p $OUTDIR
-			msgfmt $loc -o $OUTDIR/bitsafe.mo
+		if [ $loc != "localization.po" ]; then
+			LANG_CODE=`cat $loc | egrep -o "^\"Language: [^\"]+\"$" | egrep -o ": [^\\]+" | egrep -o "[^: ]+"`
+			if [ -z "$LANG_CODE" ]; then
+				echo "Localization file $loc miss a proper Language header. I need it in order to place it correctly."
+				exit 1
+			else
+				echo "Adding $LANG_CODE localization..."
+				OUTDIR=/usr/share/locale/$LANG_CODE/LC_MESSAGES
+				mkdir -p $OUTDIR
+				msgfmt $loc -o $OUTDIR/bitsafe.mo
+			fi
 		fi
 	done	
 fi

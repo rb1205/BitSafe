@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. /usr/share/bitsafe/bitsafe.build.conf
+
 # Install stuff in bitsafe.build.config
 if [ "$PRECONF_PACKETADD" ]; then apt-get --assume-yes install $PRECONF_PACKETADD; fi
 
@@ -8,5 +10,8 @@ if [ "$PRECONF_PACKETREM" ]; then apt-get --assume-yes purge $PRECONF_PACKETREM;
 
 apt-get --assume-yes autoremove --purge
 apt-get clean
+
+# rm -r /var/lib/apt/*
+# rm -r /var/cache/apt/*
 
 exit 0

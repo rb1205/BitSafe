@@ -5,3 +5,4 @@ binary/
 .stage/
 binary.*
 log
+.lock
