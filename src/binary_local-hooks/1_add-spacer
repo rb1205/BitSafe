@@ -7,7 +7,7 @@
 
 CURRENT_SIZE=`du -s binary/ | egrep -o "[0-9]+"`
 
-if [ $TARGET_SIZE -lt $CURRENT_SIZE ]; then
+if [ $PRECONF_TARGETSIZE -lt $CURRENT_SIZE ]; then
 	echo "Image target size is lesser than total size!"
 	exit 1
 fi
