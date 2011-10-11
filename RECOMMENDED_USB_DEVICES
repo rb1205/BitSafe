@@ -1,5 +1,9 @@
-Bitsafe needs a fast USB keys. If you have/get
-one of these, you should be ok:
+Bitsafe needs a device with decent write speed.
+To check for USB sticks speed go to http://usbflashspeed.com/ and
+aim for device with at least 10 MB/s of write speed, the more
+the better.
+
+If you own one of these, you should be ok:
 
 Patriot XT - Magnum - Rage
 Silicon Power LuxMini 920 
@@ -12,4 +16,8 @@ Lexar JumpDrive Lightning
 For SD cards, you should aim for a Class 6 (40x) at very
 least, better a Class 10 (66x).
 
-Raccomanded size: 4GB is gooad, anything over is just wasted.
+Raccomanded size: Bitsafe uses about 250MB for image and 2 GB for
+persistent data, so you'll need a 4 GB key. Anything over is just
+wasted.
+
+TL;DR: Look for the fastest 4GB drive you can afford to buy.
