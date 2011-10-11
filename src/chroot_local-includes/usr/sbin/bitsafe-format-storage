@@ -145,9 +145,9 @@ if [ $? -ne 0 ]; then
 fi
 
 #Setting up permissions
-chown 1000:1000 $BITSAFE_STORAGE_MOUNTPOINT
+chown root:$BITSAFE_STORAGE_GROUP $BITSAFE_STORAGE_MOUNTPOINT
 CHOWN_RETCODE=$?
-chmod 700 $BITSAFE_STORAGE_MOUNTPOINT
+chmod 770 $BITSAFE_STORAGE_MOUNTPOINT
 CHMOD_RETCODE=$?
 if [ $CHOWN_RETCODE -ne 0 ] || [ $CHMOD_RETCODE -ne 0 ]; then
 	bitsafe-umount-storage -q
@@ -155,6 +155,8 @@ if [ $CHOWN_RETCODE -ne 0 ] || [ $CHMOD_RETCODE -ne 0 ]; then
 fi
 
 bitsafe-umount-storage -q $DO_NOT_UNMAP
+
+touch /tmp/succesful_format
 
 notify "\n$COLOR_GRE ""$MSG_FORMAT_SUCC"" $COLOR_NET
 ----------------------------------------------"

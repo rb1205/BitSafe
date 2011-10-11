@@ -13,11 +13,11 @@ if [ "$DRIVE" ] && [ -e "/dev/$DRIVE" ] && [ ! -e "$CRYPT_DEVICE" ]; then
 	notify "`gettext \
 \"No persistent storage partition found.
 I will now start the BitSafe storage format utility.\"`"
-	if [ "$DISPLAY" ]; then
-		lxterminal -e /usr/sbin/bitsafe-format-storage -u || exit $?
-	else
-		/usr/sbin/bitsafe-format-storage -u || exit $?
+	test -f /tmp/succesful_format && rm /tmp/succesful_format
+	if [ "$DISPLAY" ]; then lxterminal -e /usr/sbin/bitsafe-format-storage -u
+	else /usr/sbin/bitsafe-format-storage -u
 	fi
+	if [ ! -e /tmp/succesful_format ]; then exit 1; fi
 fi
 	
 /usr/sbin/bitsafe-mount-storage
