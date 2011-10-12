@@ -112,8 +112,9 @@ if ([[ "$NEW_DRIVE" == "true" ]] && [[ "$BITSAFE_STORAGE_RANDOMIZE_NEW" == "true
         comment "$MSG_FORMAT_FILLTIME"
 	let PART2_SIZE_B=($PART2_SIZE_BLOCKS)*1024
 	let PART2_SIZE_MB=$PART2_SIZE_B/1000000
-	dd if="$BITSAFE_STORAGE_RANDOMIZE_SRC" bs=1000000 skip=1000 count="$PART2_SIZE_MB" status=noxfer | \
-	  pv -pers "$PART2_SIZE_B" >$CRYPT_DEVICE
+	dd if="$BITSAFE_STORAGE_RANDOMIZE_SRC" skip=1000 | \
+	  pv -pers "$PART2_SIZE_B" | \
+	  dd of="$CRYPT_DEVICE" status=noxfer count="$PART2_SIZE_MB" 
         if [ $? -ne 0 -a $? -ne 1 ]; then critical_error "$MSG_FORMAT_DDERR"; fi
 fi
 
