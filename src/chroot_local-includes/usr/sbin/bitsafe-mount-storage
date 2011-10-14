@@ -109,8 +109,18 @@ if ! storage_mounted && [ -z "$DO_NOT_CHECK_MOUNT" ]; then critical_error "$MSG_
 #Setup environment basis
 chown 1000:1000 "$BITSAFE_STORAGE_MOUNTPOINT"
 
-KEYRINGS_HOME="$BITSAFE_STORAGE_MOUNTPOINT/keyring"
-test -e "$KEYRINGS_HOME" || sudo -u user mkdir -p "$KEYRINGS_HOME"
+#Do backups
+BACKUPDIR=$BITSAFE_STORAGE_MOUNTPOINT/Backups
+test -d "$BACKUPDIR" && mkdir "$BACKUPDIR"
+TIMESTAMP=`date +%Y-%m-%d_%H.%M`
+WALLETFILE=$BITSAFE_STORAGE_MOUNTPOINT/bitcoin/wallet.dat; 
+if [ $BITSAFE_BACKUP_WALLET = "true" ] && [ -e "$WALLETFILE" ]; then WALLETFILE_B=$WALLETFILE ; fi
+# TOADD: SSHKEY and GPGKEY
+if [ "$WALLETFILE_B" ]; then
+	tar -cjf "$BACKUPDIR/$TIMESTAMP.tar.bz2" "$WALLETFILE_B"
+fi
+BACKUPSTODEL=`ls BACKUPDIR/ | tail -n +$BITSAFE_BACKUP_MAXNUM`
+if [ "$BACKUPSTODEL" ]; then rm $BACKUPSTODEL; fi
 
 #Handling the screen lock password.
 if [ -f /tmp/.phash ]; then
