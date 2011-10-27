@@ -21,5 +21,7 @@ application/x-tar=xarchiver.desktop;
 application/x-rar-compressed=xarchiver.desktop;
 application/zip=xarchiver.desktop;
 multipart/x-gzip=xarchiver.desktop;
-multipart/x-zip=xarchiver.desktop;a
+multipart/x-zip=xarchiver.desktop;
+inode/directory=pcmanfm.desktop;
+x-directory/normal=pcmanfm.desktop;
 
