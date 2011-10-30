@@ -9,7 +9,7 @@ sudo openssh-client screen rsync wipe nmap mtr bash bash-completion vim-tiny pv 
 #I need the whois for mkpasswd. Ask the debian guys why.
 
 # Security
-tor privoxy gnupg
+tor privoxy gnupg gpa
 
 #FS
 parted sshfs cryptsetup cryptsetup-luks

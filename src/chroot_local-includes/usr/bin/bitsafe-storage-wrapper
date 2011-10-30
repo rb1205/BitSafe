@@ -6,9 +6,9 @@ process_wrapper ()
 {
         export WRAPPER_BINNAME=`basename $0`
         export WRAPPER_ORIGINALBIN=/usr/bin/wrapped_bin/$WRAPPER_BINNAME
-	export WRAPPER_HOMEDIR=$BITSAFE_STORAGE_MOUNTPOINT/$WRAPPER_BINNAME
+	#export WRAPPER_HOMEDIR=$BITSAFE_STORAGE_MOUNTPOINT/$WRAPPER_BINNAME
 	
-	test -e $WRAPPER_HOMEDIR || mkdir $WRAPPER_HOMEDIR >/dev/null 
+	#test -e $WRAPPER_HOMEDIR || mkdir $WRAPPER_HOMEDIR >/dev/null 
 
         if [ -x /usr/bin/wrapped_bin/$WRAPPER_BINNAME.wrp ]; then
                 /usr/bin/wrapped_bin/$WRAPPER_BINNAME.wrp $*

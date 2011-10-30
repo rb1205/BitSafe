@@ -75,7 +75,7 @@ while [ 1 ]; do
 			let UMOUNT_PASSED_TIME=`date +%s`-$UMOUNT_TIME
 			if [ $UMOUNT_PASSED_TIME -gt $BITSAFE_STORAGE_AUTOUMOUNT ]; then
 				logline "Idle time reached. Umounting..."
-				RET=`bitsafe-umount-storage 2>&1`
+				RET=`bitsafe-umount-storage -g 2>&1`
 				[ "$RET" ] && logline "$RET"
 			fi
 		fi
