@@ -1,0 +1,5 @@
+. /lib/bitsafe-func
+SSH_HOME="$BITSAFE_STORAGE_MOUNTPOINT/ssh"
+test -d $SSH_HOME || mkdir $SSH_HOME
+
+$WRAPPER_ORIGINALBIN $*
