@@ -1,7 +1,6 @@
-
 To build, first make sure that you have the needed tools:
 
-# aptitude install live_build gettext
+# aptitude install live-build gettext
 
 you can then edit bitsafe.build.conf and bitsafe.live.conf in the root directory.
 These are the files with the most relevant configuration options.
