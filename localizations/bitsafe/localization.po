@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-29 17:22+0000\n"
+"POT-Creation-Date: 2011-11-10 22:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,11 +357,11 @@ msgstr ""
 msgid "Persistent storage has been unmounted and secured."
 msgstr ""
 
-#: /usr/bin/storage_wrappers/bitcoin:2
+#: /usr/bin/storage_wrappers/bitcoin:6
 msgid "Bitcoin is starting up"
 msgstr ""
 
-#: /usr/bin/storage_wrappers/bitcoin:3
+#: /usr/bin/storage_wrappers/bitcoin:7
 msgid ""
 "Bitcoin is starting for the first time on this media.\n"
 "It will take some time to build up its environment, please wait..."

@@ -7,6 +7,10 @@ iptables -F
 iptables -P INPUT DROP
 iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
 
+#Permetti connessioni su loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
 #Permetti traffico in uscita
 iptables -P OUTPUT ACCEPT #ridondante
 

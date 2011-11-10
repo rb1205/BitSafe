@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"
+                   NS1:installLocation="app-global"
+                   NS1:version="3.5.16"
+                   NS1:internalName="classic/1.0"
+                   NS1:locked="true"
+                   NS1:appManaged="true"
+                   NS1:name="Default"
+                   NS1:description="The default theme."
+                   NS1:creator="Mozilla"
+                   NS1:contributor="Mozilla Contributors">
+    <NS1:type NC:parseType="Integer">4</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$7+tqU3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$VR0I01"
+                   NS1:id="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}"
+                   NS1:minVersion="2.0"
+                   NS1:maxVersion="2.7a1" />
+  <RDF:Description RDF:about="rdf:#$7+tqU3"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.5.16"
+                   NS1:maxVersion="3.5.16" />
+  <RDF:Description RDF:about="rdf:#$WR0I01"
+                   NS1:id="{aa5ca914-c309-495d-91cf-3141bbb04115}"
+                   NS1:minVersion="0.2"
+                   NS1:maxVersion="3.1.*" />
+  <RDF:Description RDF:about="rdf:#$TR0I01"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.0"
+                   NS1:maxVersion="10.0a1" />
+  <RDF:Description RDF:about="rdf:#$UR0I01"
+                   NS1:id="{a463f10c-3994-11da-9945-000d60ca027b}"
+                   NS1:minVersion="0.4"
+                   NS1:maxVersion="2.0.*" />
+  <RDF:Description RDF:about="rdf:#$.R0I01"
+                   NS1:id="{a23983c0-fd0e-11dc-95ff-0800200c9a66}"
+                   NS1:minVersion="1.0"
+                   NS1:maxVersion="2.0a1pre" />
+  <RDF:Description RDF:about="rdf:#$ZR0I01"
+                   NS1:id="songbird@songbirdnest.com"
+                   NS1:minVersion="0.7"
+                   NS1:maxVersion="1.2.0" />
+  <RDF:Description RDF:about="rdf:#$YR0I01"
+                   NS1:id="toolkit@mozilla.org"
+                   NS1:minVersion="1.9a2"
+                   NS1:maxVersion="1.9.6" />
+  <RDF:Description RDF:about="urn:mozilla:item:{73a6fe31-595d-460b-a920-fcc0f8843232}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="2.1.9"
+                   NS1:optionsURL="chrome://noscript/content/noscriptOptions.xul"
+                   NS1:aboutURL="chrome://noscript/content/about.xul"
+                   NS1:iconURL="chrome://noscript/skin/icon32.png"
+                   NS1:name="NoScript"
+                   NS1:description="Extra protection for your Firefox: NoScript allows JavaScript, Java (and other plugins) only for trusted domains of your choice (e.g. your home-banking web site). This whitelist based pre-emptive blocking approach  prevents exploitation of security vulnerabilities (known and even unknown!) with no loss of functionality... Experts will agree: Firefox is really safer with NoScript :-)"
+                   NS1:creator="Giorgio Maone"
+                   NS1:homepageURL="http://noscript.net">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>Alberto Martínez, EduLeo &amp; Urko (Spanish translation)</NS1:contributor>
+    <NS1:contributor>aivo (Estonian translation)</NS1:contributor>
+    <NS1:contributor>Asaf Bartov (Hebrew translation)</NS1:contributor>
+    <NS1:contributor>Alf and Liesbeth (Dutch translation)</NS1:contributor>
+    <NS1:contributor>Alexander Sokolov and Sergei Smirnov (Russian translation)</NS1:contributor>
+    <NS1:contributor>Batuhan Çetin and eveterinary (Turkish translation)</NS1:contributor>
+    <NS1:contributor>Baurzhan Muftakhidinov (Kazakh translation)</NS1:contributor>
+    <NS1:contributor>Beerboy (Japanese translation)</NS1:contributor>
+    <NS1:contributor>Carsten Winkler (Danish translation)</NS1:contributor>
+    <NS1:contributor>Chiou Po-Jung (Chinese Traditional translation)</NS1:contributor>
+    <NS1:contributor>Dario Ornelas (Portuguese translation)</NS1:contributor>
+    <NS1:contributor>drAcOniS and Petr Jirsa (Czech translation)</NS1:contributor>
+    <NS1:contributor>Drive DRKA (Belarusian translation)</NS1:contributor>
+    <NS1:contributor>Engin Yazılan, Erkan Kaplan &amp; Fathi  (Turkish translation)</NS1:contributor>
+    <NS1:contributor>X.F Mao &amp; George C. Tsoi (Simplified Chinese)</NS1:contributor>
+    <NS1:contributor>Georgi Marchev (Bulgarian translation)</NS1:contributor>
+    <NS1:contributor>Håvard Mork (Norwegian bokmål translation)</NS1:contributor>
+    <NS1:contributor>Hwasung Kim (Places bookmarklet patch)</NS1:contributor>
+    <NS1:contributor>Ivan Pesic, dragan021 (Serbian translation)</NS1:contributor>
+    <NS1:contributor>Ivan Jonoski (Macedonian translation)</NS1:contributor>
+    <NS1:contributor>Jameka (Swedish translation)</NS1:contributor>
+    <NS1:contributor>Joan-Josep Bargues (Catalan translation)</NS1:contributor>
+    <NS1:contributor>Joshua Issac (Malay translation)</NS1:contributor>
+    <NS1:contributor>Khaled Hosny &amp; Nassim Dhaher (Arabic translation)</NS1:contributor>
+    <NS1:contributor>Krcko (Croatian translation)</NS1:contributor>
+    <NS1:contributor>Ian Moody (English GB translation)</NS1:contributor>
+    <NS1:contributor>LocaLiceR (Hungarian translation)</NS1:contributor>
+    <NS1:contributor>Lukasz Biegaj &amp; Teo (Polish translation)</NS1:contributor>
+    <NS1:contributor>Michela Venuto (inspiration)</NS1:contributor>
+    <NS1:contributor>Mika Pirinen (Finnish translation)</NS1:contributor>
+    <NS1:contributor>Mindaugas Jakutis (Lithuanian translation)</NS1:contributor>
+    <NS1:contributor>Mikes Kaszmán István (Hungarian translation)</NS1:contributor>
+    <NS1:contributor>MozUA (Ukrainian translation)</NS1:contributor>
+    <NS1:contributor>Pedram Veisi (Persian translation)</NS1:contributor>
+    <NS1:contributor>Peter Bradley (Welsh translation)</NS1:contributor>
+    <NS1:contributor>Raryel Costa Souza (Brazilian Portuguese)</NS1:contributor>
+    <NS1:contributor>regfreak (Indonesian translation)</NS1:contributor>
+    <NS1:contributor>roebek (Galician translation)</NS1:contributor>
+    <NS1:contributor>Qen (Thai translation)</NS1:contributor>
+    <NS1:contributor>seaousak (Korean translation)</NS1:contributor>
+    <NS1:contributor>SlovakSoft (Slovak translation)</NS1:contributor>
+    <NS1:contributor>Sonickydon (Greek translation)</NS1:contributor>
+    <NS1:contributor>Stiepan A. Kovac (Croatian translation)</NS1:contributor>
+    <NS1:contributor>swarnava (Bengali translation)</NS1:contributor>
+    <NS1:contributor>Tomaz Macus (Slovenian translation)</NS1:contributor>
+    <NS1:contributor>Thomas Weber &amp; Volker Hable (German translation)</NS1:contributor>
+    <NS1:contributor>tonynguyen and loveleeyoungae (Vietnamese translation)</NS1:contributor>
+    <NS1:contributor>x10firefox and Ultravioletu (Romanian translation)</NS1:contributor>
+    <NS1:contributor>Xavier Robin (French translation)</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$TR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$UR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$VR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$WR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$XR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$YR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$ZR0I01"/>
+    <NS1:targetApplication RDF:resource="rdf:#$.R0I01"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$XR0I01"
+                   NS1:id="dlm@emusic.com"
+                   NS1:minVersion="1.0a4"
+                   NS1:maxVersion="1.0.0.*" />
+  <RDF:Description RDF:about="urn:mozilla:item:{e0204bd5-9d31-402b-a99d-a6aa8ffebdca}"
+                   NS1:installLocation="app-profile"
+                   NS1:version="1.4.4.1"
+                   NS1:updateURL="https://www.torproject.org/torbutton/update.rdf"
+                   NS1:optionsURL="chrome://torbutton/content/preferences.xul"
+                   NS1:iconURL="chrome://torbutton/skin/tor.png"
+                   NS1:name="Torbutton"
+                   NS1:creator="Mike Perry &amp; Kory Kirk"
+                   NS1:homepageURL="https://www.torproject.org/torbutton/">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$ZfLYW3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$ZfLYW3"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.0"
+                   NS1:maxVersion="10000.0" />
+  <RDF:Seq RDF:about="urn:mozilla:item:root">
+    <RDF:li RDF:resource="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"/>
+    <RDF:li RDF:resource="urn:mozilla:item:{73a6fe31-595d-460b-a920-fcc0f8843232}"/>
+    <RDF:li RDF:resource="urn:mozilla:item:{e0204bd5-9d31-402b-a99d-a6aa8ffebdca}"/>
+  </RDF:Seq>
+</RDF:RDF>
