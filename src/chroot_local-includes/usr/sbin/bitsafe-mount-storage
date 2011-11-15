@@ -94,13 +94,14 @@ if [ $? -ne 0 ]; then
 else comment "$MSG_ALRDECR"
 fi
 
+MOUNT_OPTIONS="noatime,nodev,noexec"
 DECRPATH="/dev/mapper/$BITSAFE_STORAGE_MAPNAME"
 test -e "$BITSAFE_STORAGE_MOUNTPOINT" || mkdir -p "$BITSAFE_STORAGE_MOUNTPOINT"
-mount "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT"
+mount -o $MOUNT_OPTIONS "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT"
 if [ $? -ne 0 ]; then
         warning "$MSG_FSCK"
         fsck.ext4 -pfv "$DECRPATH"
-        mount "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT" || \
+        mount -o $MOUNT_OPTIONS "$DECRPATH" "$BITSAFE_STORAGE_MOUNTPOINT" || \
           critical_error "$( printf "$MSG_CANTMOUNT" "$DECRPATH" )"
 fi
 
