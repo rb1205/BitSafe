@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. /usr/share/bitsafe/bitsafe.build.conf
+
+if [ "$PRECONF_REMOVEICEWEASLE" = "true" ]; then
+	apt-get remove --yes  --purge iceweasel
+	ln -s /usr/bin/install-iceweasel /usr/bin/iceweasel
+	#cp /usr/share/bitsafe/install-iceweasel.desktop /etc/skel/Desktop 
+	cp /usr/share/bitsafe/install-iceweasel.desktop /usr/share/applications
+elif [ -e /usr/bin/iceweasel ]; then
+	mv /usr/bin/iceweasel /usr/bin/iceweasel-jailed
+	ln -s /usr/bin/_iceweasel /usr/bin/iceweasel
+	cp /usr/share/applications/iceweasel.desktop /etc/skel/Desktop
+fi

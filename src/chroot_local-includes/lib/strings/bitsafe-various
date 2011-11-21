@@ -1,0 +1,11 @@
+
+MSG_ABOUTTOINSTALL="`gettext \
+\"This will download and install the iceweasel
+browser for this session only.
+Do you wish to continue?\"`"
+
+MSG_INSTALLFAILED="`gettext \
+\"Installing Iceweasel failed!
+Please check that you are connected
+to the internet, wait a couple of
+minutes and try again.\"`"

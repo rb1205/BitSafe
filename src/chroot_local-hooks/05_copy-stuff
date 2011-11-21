@@ -1,5 +1,0 @@
-#!/bin/bash
-
-#Copy desktop items. I do not link them because they would show an arrow in the icon.
-cp /usr/share/applications/iceweasel.desktop /etc/skel/Desktop
-
