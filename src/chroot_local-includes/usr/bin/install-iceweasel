@@ -9,14 +9,14 @@ function installerror() {
 
 function doinstall() {
 	echo "# Updating package index"
-	sudo apt-get update || installerror
-	echo "# Downloading Iceweasel package"
+	sudo apt-get update  >/dev/null || installerror
+	echo "# Downloading packages"
 	echo "20"
-        sudo apt-get install --yes --download-only iceweasel || installerror
+        sudo apt-get install --yes --download-only iceweasel >/dev/null|| installerror
 	echo "# Installing Iceweasel"
 	echo "60"
         test -e /usr/bin/iceweasel && sudo rm /usr/bin/iceweasel
-	sudo apt-get install --yes iceweasel || installerror 
+	sudo apt-get install --yes iceweasel >/dev/null || installerror 
         test -e /usr/bin/iceweasel && sudo mv /usr/bin/iceweasel /usr/bin/iceweasel-jailed
         test -e /usr/bin/_iceweasel && sudo ln -s /usr/bin/_iceweasel /usr/bin/iceweasel
 	test -e /usr/share/applications/install-iceweasel.desktop && sudo rm /usr/share/applications/install-iceweasel.desktop

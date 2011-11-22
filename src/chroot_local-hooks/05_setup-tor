@@ -15,3 +15,5 @@ serverSlots = 2
 echo "
 ControlPort 9051
 " >>/etc/tor/torrc
+
+update-rc.d tor remove

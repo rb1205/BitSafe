@@ -13,6 +13,8 @@
 
 . /etc/bitsafe.conf
 
+service tor restart
+
 if [ "$BITSAFE_TOR_ROUTEALL" == "true" ]; then
 	/usr/sbin/tor-route-enable
 else

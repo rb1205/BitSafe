@@ -103,17 +103,12 @@ Plugin {
 }
 
 Plugin {
-    type = batt
+    type = xkb
     Config {
-        HideIfNoBattery=0
-        AlarmTime=0
-        BorderWidth=0
-        Size=0
+        DisplayType=0
+        PerAppLayout=1
+        DefaultGroup=0
     }
-}
-
-Plugin {
-    type = cpu
 }
 
 Plugin {
