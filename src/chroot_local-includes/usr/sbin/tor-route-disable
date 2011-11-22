@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#Flush
+iptables -F
+
+#Block incoming connection except for feedback for extabilished connections
+iptables -P INPUT DROP
+iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+
+#Outgoing traffic
+if [ "$1" == "-b" ]; then
+	iptables -t filter -P OUTPUT DROP #Drop everything outgoing by default
+else
+        iptables -t filter -P OUTPUT ACCEPT #redundant
+fi
+
+#Allow loopback connections to polipo and tor ports
+iptables -A INPUT -i lo -p tcp --dport 8118 -j ACCEPT
+iptables -A INPUT -i lo -p tcp --dport 9050 -j ACCEPT
+iptables -A INPUT -i lo -p tcp --dport 9051 -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT 
+iptables -A OUTPUT -o lo -p tcp --dport 9051 -m owner ! --uid-owner user -j DROP
+

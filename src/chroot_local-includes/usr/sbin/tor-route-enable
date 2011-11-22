@@ -1,0 +1,12 @@
+#!/bin/sh
+
+tor-route-disable -b
+
+#Redirect all TCP traffic
+iptables -t nat -A OUTPUT -p tcp -j REDIRECT --to-ports 9050 
+
+#Redirect DNS req to tor DNS server
+iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 53 
+
+#Allow outgoing traffic to TOR only
+iptables -t filter -A OUTPUT -m owner --uid-owner debian-tor -j ACCEPT 

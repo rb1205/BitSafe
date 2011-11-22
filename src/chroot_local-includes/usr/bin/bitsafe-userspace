@@ -1,9 +1,13 @@
 #!/bin/bash
 
+. /etc/bitsafe.conf
+
 xhost +
 
 gconftool --set --type bool /desktop/gnome/lockdown/disable_user_switching true
 
 sudo service tor restart
+
+if [ "$BITSAFE_TOR_ROUTEALL" == "true" ]; then vidalia; fi
 
  #sudo bitsafe-mount-storage-helper
