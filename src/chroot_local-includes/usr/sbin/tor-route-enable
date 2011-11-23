@@ -1,6 +1,12 @@
 #!/bin/sh
 
+# TRASPARENT TOR RUTING IS BUGGED!!
+echo "Trasparent tor routing is bugged! Please don't use me! Exiting..."
+exit 1
+
 tor-route-disable -b
+
+# FIX UNDER THIS
 
 #Redirect all TCP traffic
 iptables -t nat -A OUTPUT -p tcp -j REDIRECT --to-ports 9050 
