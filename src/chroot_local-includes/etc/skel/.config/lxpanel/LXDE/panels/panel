@@ -62,21 +62,7 @@ Plugin {
         Button {
             id=/usr/share/applications/bitcoin.desktop
         }
-        Button {
-            id=/usr/share/applications/iceweasel.desktop
-        }
     }
-}
-
-Plugin {
-    type = space
-    Config {
-        Size=4
-    }
-}
-
-Plugin {
-    type = pager
 }
 
 Plugin {
@@ -105,7 +91,7 @@ Plugin {
 Plugin {
     type = xkb
     Config {
-        DisplayType=0
+        DisplayType=1
         PerAppLayout=1
         DefaultGroup=0
     }
@@ -128,9 +114,6 @@ Plugin {
 Plugin {
     type = launchbar
     Config {
-        Button {
-            id=lxde-screenlock.desktop
-        }
         Button {
             id=lxde-logout.desktop
         }
