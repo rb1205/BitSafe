@@ -14,7 +14,8 @@ for alt in *; do
         else
                 echo "wrapper $alt does not wrap anything"
         fi
-	if [ `du $alt | egrep -o [0-9]+` -ne 0 ]; then
+	
+	if [ "`du $alt | egrep -o ^[0-9]+`" -ne 0 ]; then
 		cp $alt ../wrapped_bin/$alt.wrp
 	fi
 
