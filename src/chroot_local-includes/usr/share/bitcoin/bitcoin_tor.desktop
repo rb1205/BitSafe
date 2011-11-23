@@ -1,0 +1,17 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Bitcoin with TOR
+Name[it]=Bitcoin con TOR
+Comment=Send and receive the crypto-currency known as Bitcoin. Uses TOR to connect to the net
+Comment[it]=Invia e ricevi la crittovaluta nota come Bitcoin. Usa TOR per connettersi alla rete
+GenericName=Bitcoin Client with TOR
+GenericName[it]=Client Bitcoin con TOR
+X-GNOME-FullName=Bitcoin Client with TOR
+X-GNOME-FullName[it]=Client Bitcoin con TOR
+Exec=bitcoin -proxy=127.0.0.1:9050
+Terminal=false
+Type=Application
+Icon=bitcoin
+Encoding=UTF-8
+Categories=Network
+StartupNotify=true

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DIR=/var/lib/browseruser
+USER=browser
+
+adduser --system --shell /bin/bash --home $DIR --disabled-password $USER
+
+chmod 777 $DIR
+chown -R $USER $DIR
+

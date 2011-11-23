@@ -1,0 +1,7 @@
+#!/bin/bash
+
+USER=browser
+
+sudo -u $USER iceweasel-jailed
+
+

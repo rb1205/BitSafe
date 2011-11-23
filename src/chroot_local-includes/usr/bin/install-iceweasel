@@ -1,0 +1,45 @@
+#!/bin/bash
+
+. /lib/strings/bitsafe-various
+
+function installerror() {
+	zenity --error --text="$MSG_INSTALLFAILED"
+	exit 1
+}
+
+function doinstall() {
+	echo "# Updating package index"
+	sudo apt-get update  >/dev/null || installerror
+	echo "# Downloading packages"
+	echo "20"
+        sudo apt-get install --yes --download-only iceweasel >/dev/null|| installerror
+	echo "# Installing Iceweasel"
+	echo "60"
+        test -e /usr/bin/iceweasel && sudo rm /usr/bin/iceweasel
+	sudo apt-get install --yes iceweasel >/dev/null || installerror 
+        test -e /usr/bin/iceweasel && sudo mv /usr/bin/iceweasel /usr/bin/iceweasel-jailed
+        test -e /usr/bin/_iceweasel && sudo ln -s /usr/bin/_iceweasel /usr/bin/iceweasel
+	test -e /usr/share/applications/install-iceweasel.desktop && sudo rm /usr/share/applications/install-iceweasel.desktop
+	test -e /home/user/Desktop/install-iceweasel.desktop && sudo rm /home/user/Desktop/install-iceweasel.desktop
+	test -e /usr/share/applications/iceweasel.desktop && sudo cp /usr/share/applications/iceweasel.desktop /home/user/Desktop
+	echo "# Iceweasel installed!"
+	echo "100"
+}
+
+if [ -z "$DISPLAY" ]; then
+	echo "No SCREEN configured"
+	exit 1
+fi
+
+if [ "`dpkg --get-selections | grep iceweasel`" ]; then
+	echo "Already installed"
+	exit 0
+fi
+
+zenity --question --text="$MSG_ABOUTTOINSTALL" || exit 1
+
+if [ $? -eq 0 ]; then
+	doinstall | zenity --progress --auto-close --title="Installing IceWeasel" --percentage=0
+fi
+
+iceweasel

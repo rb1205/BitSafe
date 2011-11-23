@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Install Browser
+Name[it]=Installa il Browser
+Comment=Install the Iceweasel Browser in the RAM for this session
+Comment[it]=Installa il Browser iceweasel nella RAM per questa sessione
+Exec=install-iceweasel
+Terminal=false
+Type=Application
+Icon=web-browser
+Encoding=UTF-8
+Categories=Network

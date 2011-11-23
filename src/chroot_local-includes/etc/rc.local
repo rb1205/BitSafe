@@ -11,6 +11,15 @@
 #
 # By default this script does nothing.
 
-/usr/sbin/bitsafe-set-firewall
+. /etc/bitsafe.conf
+
+service tor restart
+
+if [ "$BITSAFE_TOR_ROUTEALL" == "true" ]; then
+	/usr/sbin/tor-route-enable
+else
+	/usr/sbin/tor-route-disable
+fi
+
 
 exit 0

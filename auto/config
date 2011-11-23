@@ -10,14 +10,15 @@ lb config noauto \
 --memtest none \
 --binary-images usb-hdd \
 --archive-areas "main non-free" \
---volatile false \
+--volatile true \
+--security true \
 --syslinux-splash "contrib/media/syslinux_splash.png" \
 --cache-stages bootstrap \
 --debian-installer false \
 --hostname bitsafe \
 --iso-preparer "Debian" \
 --iso-application "BitSafe" \
---cache-indices true \
+--cache-indices false \
 --bootstrap-flavour minimal \
 --apt-recommends disabled \
 --tasksel none \
