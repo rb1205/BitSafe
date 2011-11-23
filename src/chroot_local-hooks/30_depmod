@@ -1,0 +1,4 @@
+#!/bin/sh
+
+VERSION=`ls /lib/modules`
+depmod $VERSION
