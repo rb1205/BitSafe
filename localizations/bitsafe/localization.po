@@ -8,11 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2011-10-30 08:45+0000\n"
-=======
-"POT-Creation-Date: 2011-11-23 15:23+0000\n"
->>>>>>> unstable
+"POT-Creation-Date: 2011-11-23 22:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -361,8 +357,6 @@ msgstr ""
 msgid "Persistent storage has been unmounted and secured."
 msgstr ""
 
-<<<<<<< HEAD
-=======
 #: /lib/strings/bitsafe-various:3
 msgid ""
 "This will download and install the iceweasel\n"
@@ -378,7 +372,6 @@ msgid ""
 "minutes and try again."
 msgstr ""
 
->>>>>>> unstable
 #: /usr/bin/storage_wrappers/bitcoin:6
 msgid "Bitcoin is starting up"
 msgstr ""

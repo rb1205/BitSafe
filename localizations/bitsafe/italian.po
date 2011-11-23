@@ -41,26 +41,6 @@ msgstr ""
 "Può e DOVREBBE essere diversa rispetto alla\n"
 "password della partizione di memorizzazione."
 
-#: /lib/strings/bitsafe-various:3
-msgid ""
-"This will download and install the iceweasel browser.\n"
-"Do you wish to continue?"
-msgstr "Questo scaricherà ed intallerà il browser\n"
-"Iceweasel. Vuoi proseguire?"
-
-#: /lib/strings/bitsafe-various:7
-msgid ""
-"Installing Iceweasel failed!\n"
-"Please check that you are connected\n"
-"to the internet, wait a couple of\n"
-"minutes and try again."
-msgstr ""
-"Installazione di Icewesel fallita!\n"
-"Controlla di essere collegato ad\n"
-"internet, aspetta un paio di minuti\n"
-"e ritenta."
-
-
 #: /lib/strings/bitsafe-format-storage:2
 msgid ""
 "\n"
@@ -498,6 +478,28 @@ msgstr "Storage disattivato"
 #: /lib/strings/bitsafe-umount-storage:30
 msgid "Persistent storage has been unmounted and secured."
 msgstr "La partizione di memorizzazione è stata smontata e messa in sicurezza."
+
+#: /lib/strings/bitsafe-various:3
+msgid ""
+"This will download and install the iceweasel\n"
+"browser for this session only.\n"
+"Do you wish to continue?"
+msgstr ""
+"Questo scaricherà ed intallerà il browser\n"
+"Iceweasel solamente per questa sessione."
+"Vuoi proseguire?"
+
+#: /lib/strings/bitsafe-various:8
+msgid ""
+"Installing Iceweasel failed!\n"
+"Please check that you are connected\n"
+"to the internet, wait a couple of\n"
+"minutes and try again."
+msgstr ""
+"Installazione di Icewesel fallita!\n"
+"Controlla di essere collegato ad\n"
+"internet, aspetta un paio di minuti\n"
+"e ritenta."
 
 #: /usr/bin/storage_wrappers/bitcoin:2
 msgid "Bitcoin is starting up"
