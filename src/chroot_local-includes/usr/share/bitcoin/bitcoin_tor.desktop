@@ -8,7 +8,7 @@ GenericName=Bitcoin Client with TOR
 GenericName[it]=Client Bitcoin con TOR
 X-GNOME-FullName=Bitcoin Client with TOR
 X-GNOME-FullName[it]=Client Bitcoin con TOR
-Exec=bitcoin -proxy=127.0.0.1:9050
+Exec=bitcoin-qt -proxy=127.0.0.1:9050
 Terminal=false
 Type=Application
 Icon=bitcoin
