@@ -3,3 +3,10 @@
 
 *  Format lets you set up a null-password storage, but mount will fail mounting it.
 
+*  Random data filling isn't working
+
+*  Trasparent TOR routing isn't working. 
+
+*  Failing to enter two identical password while formatting the storage partition will end up reporting a corrupted partition.
+
+*  Switching off the PC or pulling out the USB drive while bitcoin is working can cause the blockchain to become corrupt
