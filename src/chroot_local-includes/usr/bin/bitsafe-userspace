@@ -2,18 +2,22 @@
 
 . /etc/bitsafe.conf
 
+#Permit connections to the X server to anyone
+# Needed to let the browser be launched under a different user
 xhost +
 
+# Blocks some prompts and actions related to changing user session
 gconftool --set --type bool /desktop/gnome/lockdown/disable_user_switching true
 
-vidalia & 
-
+#Adds the additionals keyboard layouts specified in the configuration file to
+#the default layout. They can be cycled with the keyboard layout applet
+#in the tray near the clock.
 ACTUAL_KBCODE=`setxkbmap -print | grep xkb_symbols | awk '{print $4}' | awk -F"+" '{print $2}'`
+#REmove duplicates
 KBMAP_ADDITIONALS=`echo "$BITSAFE_KBMAP_ADDITIONALS" | sed "s/$ACTUAL_KBCODE//"`
 KBMAPS="$ACTUAL_KBCODE,$KBMAP_ADDITIONALS"
-
-KBMAPS=`echo "$KBMAPS" | sed 's/^,//;s/,$//;s/,,/,/;s/,,,/,/;s/,,,,/,/'`
-	
+#Remove weong commas
+KBMAPS=`echo "$KBMAPS" | sed 's/,,/,/;s/,,,/,/;s/,,,,/,/;s/^,//;s/,$//'` 
 setxkbmap "$KBMAPS"
 
  #sudo bitsafe-mount-storage-helper
