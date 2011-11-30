@@ -9,7 +9,8 @@
 # In order to enable or disable this script just change the execution
 # bits.
 #
-# By default this script does nothing.
+# By default this script sets up bitsafe variables, restarts tor and
+# configures the firewall
 
 . /etc/bitsafe.conf
 

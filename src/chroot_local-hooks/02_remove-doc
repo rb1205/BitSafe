@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Remove stuff to save space. Let me know if i'm deleting anything I shouldn't.
+# Remove stuff to save space. Let me know if I'm deleting anything I shouldn't.
 
 rm -r /usr/share/doc/*
 
