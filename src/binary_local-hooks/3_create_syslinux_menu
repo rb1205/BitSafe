@@ -1,4 +1,3 @@
-
 #Hack to drop the original debian live syslinux menu and create a multiple language-based boot menu.
 
 . ./bitsafe.build.conf
@@ -18,10 +17,8 @@ label $i
         kernel /live/vmlinuz
         append $PRECONF_BOOTPAR locales=$locale keyboard-layouts=$keyb" \
 	>>$FILE
-	
+
         i=$((i+1))
 done
 
 sed -i 's/Boot menu/Select Language/' binary/syslinux/menu.cfg
-
-

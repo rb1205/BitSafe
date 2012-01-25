@@ -1,9 +1,9 @@
-# This files is used to make the image partition a little bigger, so that
-# should bitsafe image grow in size from one release to annother, users 
+# This file is used to make the image partition a little bigger, so that
+# should bitsafe image grow in size from one release to annother, users
 # can upgrade without flashing the image over their key, destroying their
 # storage data.
 
-. ./bitsafe.build.conf 
+. ./bitsafe.build.conf
 
 CURRENT_SIZE=`du -s binary/ | egrep -o "[0-9]+"`
 
@@ -19,4 +19,4 @@ if [ $PADDER_SIZE -lt 5000 ]; then
 	echo "Padder size is running low! $PADDER_SIZE KB."
 fi
 
-dd if=/dev/zero of=binary/live/padder bs=1024 count=$PADDER_SIZE 
+dd if=/dev/zero of=binary/live/padder bs=1024 count=$PADDER_SIZE

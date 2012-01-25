@@ -1,0 +1,43 @@
+#!/bin/bash
+
+OUTPUT_DIR=~/Dropbox/Public
+#OUTPUT_DIR=/tmp
+
+if [ -z "$1" ]; then
+	echo "usage: release <version>"
+	exit 1
+fi
+
+function processfile {
+        gpg -bs $1 || return $?
+        md5sum $1 >$1.md5 || return $?
+        cp $1 $1.sig $1.md5 $TODIR
+	rm $1.sig $1.md5
+	return $?
+}
+
+function exiterr {
+	echo "error, exiting."
+	exit 1
+}
+
+if [ ! -d $OUTPUT_DIR ]; then
+	echo "no output directory"
+	exit 1
+fi
+
+if [ ! -e binary.img ] || [ ! -e binary/live/filesystem.squashfs ]; then
+	echo "missing binary.img or filesystem.squashfs"
+	exit 1
+fi
+TODIR=$OUTPUT_DIR/$1
+test -d $TODIR || mkdir -p $TODIR
+if [ ! -d $TODIR ]; then
+        echo "no output directory"
+        exit 1
+fi
+
+processfile binary.img || exiterr
+cp binary/live/filesystem.squashfs . || exiterr
+processfile filesystem.squashfs || exiterr
+rm filesystem.squashfs || exiterr
