@@ -38,6 +38,8 @@ if [ ! -d $TODIR ]; then
 fi
 
 processfile binary.img || exiterr
-cp binary/live/filesystem.squashfs . || exiterr
-processfile filesystem.squashfs || exiterr
-rm filesystem.squashfs || exiterr
+cd binary || exiterr
+tar -xf ../live.tar.gz live || exiterr
+cd ..
+processfile live.tar.gz || exiterr
+rm live.tar.gz || exiterr
