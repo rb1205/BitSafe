@@ -21,6 +21,7 @@ function exiterr {
 	exit 1
 }
 
+
 if [ ! -d $OUTPUT_DIR ]; then
 	echo "no output directory"
 	exit 1
@@ -39,7 +40,7 @@ fi
 
 processfile binary.img || exiterr
 cd binary || exiterr
-tar -xf ../live.tar.gz live || exiterr
+tar -czf ../live.tar.gz live || exiterr
 cd ..
 processfile live.tar.gz || exiterr
 rm live.tar.gz || exiterr
