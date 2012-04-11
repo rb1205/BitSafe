@@ -1,5 +1,6 @@
 #!/bin/bash
 
+. /lib/bitsafe-func
 . /lib/strings/bitsafe-various
 
 function installerror() {
