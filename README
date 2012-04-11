@@ -1,0 +1,33 @@
+BitSafe - a safety deposit box for your bitcoins.
+Copyright (c) 2012, Riccardo Belloli
+
+########################################################################
+#                                                                      #
+# Instruction about how to build BitSafe and the required dependancies #
+# are in the BUILD file in this same directory                         #
+#                                                                      #
+########################################################################
+
+Feel free to bug me at the github project page at:
+
+https://github.com/rb1205/BitSafe
+
+Or at my personal mail: r.belloli@gmail.com
+
+
+
+Legal stuff:
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+

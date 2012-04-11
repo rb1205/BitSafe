@@ -1,4 +1,6 @@
-To build, first make sure that you have the needed tools:
+To build BitSafe you'll need a workin Debian Squeeze installation on a i386 or x64 architecture.
+
+First, make sure that you have the needed tools:
 
 # aptitude install live-build gettext
 
@@ -20,8 +22,9 @@ in the root directory. You can flash that one directly with dd
 
 WARNING: This will cancell everything you have on the media, including the persistent
 storage partition!!!
-If you don't want to wipe the drive with the above command, you can just copy the data
-in the binary/ directory to your drive's first partition.
+If you don't want to wipe the drive with the above command, you can just overwrite the
+"live" directory on your target device with the one in the "binary" subdir in this same
+directory.
 
 If you want to rebuild your image, remember to clean before configuring.
 
