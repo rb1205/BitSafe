@@ -1,4 +1,4 @@
-Bitsafe needs a device with decent write speed.
+Bitsafe needs a device of at least 4 gb with decent write speed.
 To check for USB sticks speed go to http://usbflashspeed.com/ and
 aim for device with at least 10 MB/s of *write* speed, the more
 the better.
@@ -15,7 +15,7 @@ Sandisk Cruzer Contour
 For SD cards, you should aim for a Class 6 (40x) at very
 least, better a Class 10 (66x).
 
-Raccomanded size: Bitsafe uses about 250MB for binary and 2 GB for
+Raccomanded size: Bitsafe uses about 250MB for binary and 3.5 GB for
 persistent storage, so you'll need a 4 GB key. Anything over is just
 wasted.
 
