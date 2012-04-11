@@ -15,7 +15,7 @@ And, finally, the build itself
 
 # lb build
 
-This will take a moment. At the end of the process, you'll find the binary.img file
+This will take about 15-30 mins. At the end of the process, you'll find the binary.img file
 in the root directory. You can flash that one directly with dd
 
 # dd if=binary.img of=/dev/sd...
