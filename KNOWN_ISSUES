@@ -1,10 +1,8 @@
 
 *  The configuration option to mount the storage partition at boot time does not work
 
-*  Format lets you set up a null-password storage, but mount will fail mounting it.
+*  The format script lets you set up a null-password storage, but mount will fail mounting it.
 
-*  Trasparent TOR routing isn't working. 
+*  Trasparent TOR routing isn't working. Tor proxying with Firefox and Bitcoin works fine.
 
-*  Failing to enter two identical password while formatting the storage partition will end up reporting a corrupted partition.
-
-*  Switching off the PC or pulling out the USB drive while bitcoin is working can cause the blockchain to become corrupt
+*  Switching off the PC or pulling out the USB drive while bitcoin is working can cause the blockchain to become corrupt, requiring you to delete the blockchain file or formatting the storage.
