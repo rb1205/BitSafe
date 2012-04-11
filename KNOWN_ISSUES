@@ -3,8 +3,6 @@
 
 *  Format lets you set up a null-password storage, but mount will fail mounting it.
 
-*  Random data filling isn't working
-
 *  Trasparent TOR routing isn't working. 
 
 *  Failing to enter two identical password while formatting the storage partition will end up reporting a corrupted partition.
