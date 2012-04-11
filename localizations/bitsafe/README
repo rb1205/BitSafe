@@ -1,8 +1,8 @@
 These are the translations for the scripts used by bitsafe. 
 To add yours, you just have to edit the file named "translate.po.original", which is automatically generated with the most up-to-date list of translable strings.
 Once edited (you can have a look to the other translation for reference) you can rename it to something.po and put it here. Remember to add the proper 
-localization string in the file header (en_UK, es_ES, ...), or the build will fail.
-
+localization string in the file header (en_UK, es_ES, ...), or the build will fail. You can launch './check missing_lines <lang>.po' to check for missing
+translation strings.
 Note that this file translates the scripts only. To translate the icons, you should edit the .desktop files located under src/chroot_local-include/usr/share/bitsafe 
 
 I'll be more than happy to include your translation in the project. Just mail it to me at r.belloli@gmail.com
