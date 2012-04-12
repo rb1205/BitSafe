@@ -1,0 +1,160 @@
+#!/bin/bash
+
+export TEXTDOMAIN=bitsafe
+
+. /lib/bitsafe-func
+. /lib/strings/bitsafe-blockchain-download
+
+SITE="http://eu1.bitcoincharts.com/blockchain"
+KEY=/usr/share/bitsafe/bc_downloading_service_pubkey.gpg
+OUTPUT_DIR=$BITSAFE_STORAGE_MOUNTPOINT/bitcoin
+BITCOIN_PROCESS="bitcoin-qt"
+LOCKFILE=/tmp/downloading_bc
+
+function usage () {
+        echo "$MSG_USAGE"
+}
+
+#GUI MODE is enabled by default if DISPLAY is defined and stout doesn't go to a terminal.
+#disabled otherwise.
+if [ "$DISPLAY" ] && [ ! -t 1 ]; then GUI_MODE=1; fi
+
+while getopts “gtqnh?” OPTION
+do
+        case $OPTION in
+        g)
+                GUI_MODE=1
+                ;;
+        t)
+                GUI_MODE=
+                ;;
+        q)
+                QUIET=1
+                ;;
+
+	n)
+		DONOT_RESCAN=1
+		;;
+        [h?])
+                usage
+                exit
+                ;;
+        *)
+                usage
+                exit 1
+                ;;
+        esac
+done
+
+if [ "$GUI_MODE" ] && [ -z "$DISPLAY" ]; then
+        error "$MSG_NODISPLAY"
+        exit 1
+fi
+
+function signal () {
+	if [ "$GUI_MODE" ]; then
+		echo "# $1"
+	else
+		prstatus $1
+	fi
+}
+
+function test_sig () {
+        gpg -q --import $KEY
+        cat $2 | gpg -q --verify $1 -
+        if [ $? -eq 0 ]; then
+                touch /tmp/sig_ok
+        else
+                test -e /tmp/sig_ok && rm /tmp/sig_ok
+        fi
+	rm $1 $2
+}
+
+function purge_bc () {
+        rm $OUTPUT_DIR/blk*.dat 2>/dev/null
+}
+
+
+function do_stuff () {	
+#Get index and last archive
+	signal "$MSGSIG_INDEX"
+	FILE="`wget -T 5 -O - "$SITE" | tac | egrep  -o -m 1 "blockchain-[0-9]+-[0-9]+-[0-9]+.tar" | head -n 1 2>/dev/null`" 
+	if [ -z "$FILE" ]; then
+		error "$( printf "$MSGERR_NOINDEX" "$SITE")"
+		return 1
+	fi
+	FILE_SIG=$FILE.sig
+	URL_FILE=$SITE/$FILE
+	URL_SIG=$SITE/$FILE_SIG
+	PATHFILE_SIG=/tmp/$FILE_SIG
+	
+#Download signature & launch verifier on named pipe
+	signal "$MSGSIG_SIGNATURE"
+	if ! wget "$URL_SIG" -O $PATHFILE_SIG &>/dev/null; then
+		error "$MSGERR_NOSIG"
+                return 1
+        fi
+	NAMED_PIPE=/tmp/bc_pipe.$$
+	mkfifo $NAMED_PIPE
+	#Start a background process and pass the DL stream to verify the signature
+	test_sig $PATHFILE_SIG $NAMED_PIPE & >/dev/null 2>&1
+
+#Close bitcoin
+	touch $LOCKFILE
+        signal "$MSGSIG_CLOSING"
+        CURR_TIM=`date +%s`
+        let TIMEOUT_KILL=CURR_TIM+30
+        let TIMEOUT_OUT=TIMEOUT_KILL+10
+        killall $BITCOIN_PROCESS >/dev/null 2>&1
+        while [ -n "`ps -Al | grep -o $BITCOIN_PROCESS`" ]; do
+                sleep 1
+                if [ $TIMEOUT_OUT -lt `date +%s` ]; then
+                        error "$MSGERR_CLOSING"
+			echo "meh" >$NAMED_PIPE #Close monitoring process
+                        exit 3
+                elif [ $TIMEOUT_KILL -lt `date +%s` ]; then
+                        signal "$MSGSIG_SIGKILL"
+                        killall -9 $BITCOIN_PROCESS >/dev/null 2>&1
+                        TIMEOUT_KILL=9999999999999
+                fi
+        done
+	
+#Download & unpack data
+	purge_bc
+	mkdir -p $OUTPUT_DIR
+	if [ "$GUI_MODE" ]; then
+		( wget -T 5 -O - $URL_FILE | tee $NAMED_PIPE | tar -xC $OUTPUT_DIR ) 2>&1 | \
+		sed -ue 's/^.* \+\([0-9]\+%\) \+\([0-9.]\+[GMKB]\) \+\([0-9hms.]\+\).*$/\1\n# <STR> \2 (\3)/' -e "s/<STR>/$MSGSIG_DOWNLOAD/"
+	else
+		wget -T 5 -O - $URL_FILE | tee $NAMED_PIPE | tar -xC $OUTPUT_DIR 
+	fi
+
+#Check signature
+	wait
+	if [ ! -f /tmp/sig_ok ]; then
+		error "$MSGERR_VERIF"
+		purge_bc
+		exit 2
+	fi 
+	
+#Start Bitcoin
+	signal "$MSGSIG_BITCOIN"
+	rm $LOCKFILE
+	RESCAN="-rescan"
+	if [ "$DONOT_RESCAN" ]; then RESCAN="" ; fi
+	$BITCOIN_PROCESS $RESCAN &
+	disown
+	sleep 3
+
+#Finish
+	if [ -z "$GUI_MODE" ]; then prstatus "Complete!"; fi
+	exit 0
+}
+
+if [ $GUI_MODE ]; then
+	start_persistent_command do_stuff | zenity --progress --auto-close --auto-kill --title="$WIN_TITLE" --percentage=0
+else
+	start_persistent_command do_stuff 
+fi
+
+exit $?
