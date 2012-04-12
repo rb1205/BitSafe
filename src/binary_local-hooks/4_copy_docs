@@ -1,0 +1,4 @@
+/bin/sh
+
+cp LICENSE live/
+cat README | egrep -v "^#" >live/README
