@@ -7,11 +7,7 @@ First, make sure that you have the needed tools:
 you can then edit bitsafe.build.conf and bitsafe.live.conf in the root directory.
 These are the files with the most relevant configuration options.
 
-You can then launch the configurator
-
-$ lb config
-
-And, finally, the build itself
+You can then launch the build process
 
 # lb build
 
