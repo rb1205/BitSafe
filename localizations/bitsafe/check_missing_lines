@@ -1,3 +1,8 @@
 #!/bin/bash
 
+if [ -z "$1" ] || [ ! -e "$1" ]; then
+	echo "Example usage: ./check_missing_lines italian.po"
+	exit 2
+fi
+
 diff -I "^#:"  localization.po $1 | tail -n +30 | egrep "^<" | grep -v "msgstr \"\""

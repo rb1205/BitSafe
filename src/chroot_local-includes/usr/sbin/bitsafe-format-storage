@@ -103,7 +103,7 @@ else
 fi
 prstatus "$( printf "$MSG_FORMAT_MKPART" "$DRIVE" "$PART_BEGIN" "$PART_END" )"
 parted /dev/$DRIVE mkpart primary $PART_BEGIN $PART_END || \
-  critical_error "$MSG_FORMAT_PARTEDERR"
+  critical_error "$MSG_FORMAT_PARTEDERR" &>/dev/null
 PART2_SIZE_BLOCKS=`cat /proc/partitions | grep -w "$DRIVE"2 | egrep -ow "[0-9]{4,15}"`
 test -z "$PART2_SIZE_BLOCKS" && critical_error "$MSG_FORMAT_PARTNODEC"
 
