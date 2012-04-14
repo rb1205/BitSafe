@@ -41,6 +41,113 @@ msgstr ""
 "Può e DOVREBBE essere diversa rispetto alla\n"
 "password della partizione di memorizzazione."
 
+#: /lib/strings/bitsafe-blockchain-download:2
+msgid ""
+"\n"
+"bitsafe-blockchain-download <options>\n"
+"\n"
+"Downloads and install a packaged nightly version of the blockchain\n"
+"from a web site () and verify it aganist a local public key.\n"
+"Can work both in graphical and terminal mode. The Graphical mode\n"
+"is enabled by default if the script is launched not interactively\n"
+"and the display environment variable is defined. You can change\n"
+"this with option flags.\n"
+"\n"
+"Options:\n"
+"        -g              Forces GUI behavior\n"
+"        -t              Forces terminal-style behavior\n"
+"        -q              Suppress all output\n"
+"\t-n\t\tNormally this script launches bitcoin with\n"
+"\t\t\tthe -rescan flag as the download ends.\n"
+"\t\t\tuse -n to launch without rescan flag.\n"
+"        -h              this help\n"
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:23
+msgid "Downloading index..."
+msgstr "Scarico l'indice..."
+
+#: /lib/strings/bitsafe-blockchain-download:24
+msgid "Downloading signature file..."
+msgstr "Scarico la firma digitale..."
+
+#: /lib/strings/bitsafe-blockchain-download:25
+msgid "Closing Bitcoin..."
+msgstr "Chiudo bitcoin..."
+
+#: /lib/strings/bitsafe-blockchain-download:26
+msgid "Bitcoin did not respond to SIGHUP, trying SIGKILL..."
+msgstr "Bitcoin non ha risposto a SIGHUP, provo con SIGKILL..."
+
+#: /lib/strings/bitsafe-blockchain-download:27
+msgid "Downloading data..."
+msgstr "Scarico i dati..."
+
+#: /lib/strings/bitsafe-blockchain-download:28
+msgid "Starting Bitcoin..."
+msgstr "Lancio Bitcoin"
+
+#: /lib/strings/bitsafe-blockchain-download:29
+msgid "The Blockchain has been installed successfully!"
+msgstr "La catena dei blocchi è stata installata!"
+
+#: /lib/strings/bitsafe-blockchain-download:30
+msgid "Downloading the Block Chain"
+msgstr "Scaricamento della Blockchain"
+
+#: /lib/strings/bitsafe-blockchain-download:33
+msgid ""
+"Can't retrive archive index from %s.\n"
+"Please make sure that you're connected\n"
+"to the internet and try again in a couple\n"
+"of minutes."
+msgstr ""
+"Non riesco a scaricare l'indice dell'archivio\n"
+"da %s\n"
+"Assicurati di essere connesso ad internet\n"
+"e riprova tra qualche minuto."
+
+#: /lib/strings/bitsafe-blockchain-download:39
+msgid ""
+"Can't download the block chain signature.\n"
+"Please make sure that you're connected\n"
+"to the internet and try again in a couple\n"
+"of minutes."
+msgstr ""
+"Impossibile scaricare la firma digitale della\n"
+"catena dei blocchi. Prego assicurarsi di essere\n"
+"collegati ad internet e riprovare tra un paio\n"
+"di minuti."
+
+#: /lib/strings/bitsafe-blockchain-download:45
+msgid ""
+"Failed to close bitcoin. Probably this\n"
+"is because the client hung up and refuses\n"
+"to die. Launch this script again after\n"
+"rebooting bitsafe."
+msgstr ""
+"Impossibile chiudere bitcoin. Probabilmente\n"
+"è dovuto ad un blocco del client. Prova a\n"
+"rilanciare nuovamente questa script dopo\n"
+"aver rivviato BitSafe."
+
+#: /lib/strings/bitsafe-blockchain-download:51
+msgid ""
+"Signature verification failed!\n"
+"This means that your downloaded file is\n"
+"invalid: the signing key changed or your\n"
+"internet connection is being filtered or\n"
+"altered by someone or something.\n"
+"Please try again in a couple of minutes."
+msgstr ""
+"Verifica della firma fallita!\n"
+"Questo significa che la catena dei blocchi\n"
+"appena scaricata non è valida: la chiave di\n"
+"firma è cambita o la tua connessione ad\n"
+"internet è filtrata o alterata da qualcuno\n"
+"o qualcosa.\n"
+"Prego riprovare tra qualche minuto."
+
 #: /lib/strings/bitsafe-format-storage:2
 msgid ""
 "\n"
@@ -126,8 +233,8 @@ msgstr ""
 "dispositivo, non c'è nulla di cui preoccuparsi e puoi continuare."
 
 #: /lib/strings/bitsafe-format-storage:40
-msgid "You wish to continue? (y/n)"
-msgstr "Vuoi continuare? (y/n)"
+msgid "You wish to continue? (Y/n)"
+msgstr "Vuoi continuare? (Y/n)"
 
 #: /lib/strings/bitsafe-format-storage:41
 msgid "* Checking available space"
@@ -507,6 +614,37 @@ msgstr ""
 "internet, aspetta un paio di minuti\n"
 "e ritenta."
 
+#: /usr/bin/storage_wrappers/bitcoin-qt:7
+msgid ""
+"BitSafe is currently downloading the blockchain from\n"
+"the web. You can't start bitcoin untill the download is\n"
+"finished or cancelled."
+msgstr ""
+"BitSafe al momento sta scaricando la catena dei blocchi\n"
+"dal web. Non è possibile far partire bitcoin finchè il\n"
+"download finisca o venga arrestato."
+
+#: /usr/bin/storage_wrappers/bitcoin-qt:6
+msgid "Download the BlockChain from the web?"
+msgstr "Scaricare la BlockChain dal web?"
+
+#: /usr/bin/storage_wrappers/bitcoin-qt:9
+msgid ""
+"Do you wish to download the database from an external, \n"
+"trusted web archive? This is a one-time operation that \n"
+"will dramatically cut down the time needed to reach the \n"
+"synced state (about an hour, down from several days) and \n"
+"it's reasonably safe for most uses. \n"
+"Do you want to download the blockchain from the web now?"
+msgstr ""
+"Vuoi scaricare il database da un archivio web esterno \n"
+"fidato? Questa è un'operazione una tantum che diminuirà \n"
+"drasticamente il tempo necessario per raggiungere lo stato \n"
+"di sincronia (circa un'ora rispetto a diversi giorni), ed \n"
+"è sufficentemente sicuro nella maggior parte dei casi \n"
+"d'impiego.\n"
+"Vuoi scaricare la catena dei blocchi dal web?"
+
 #: /usr/bin/storage_wrappers/bitcoin:2
 msgid "Bitcoin is starting up"
 msgstr "Avvio di bitcoin in corso"
@@ -514,8 +652,8 @@ msgstr "Avvio di bitcoin in corso"
 #: /usr/bin/storage_wrappers/bitcoin:3
 msgid ""
 "Bitcoin is starting for the first time on this media.\n"
-"It will take some time to build up its environment, please wait..."
+"It will take a while to build up its environment, please wait..."
 msgstr ""
 "Bitcoin è stato avviato per la prima volta su questo dispositivo.\n"
-"Ci vorrà del tempo per impostarne l'ambiente di lavoro, attendere..."
+"Attendere la creazione dell'ambiente di lavoro, prego..."
 
