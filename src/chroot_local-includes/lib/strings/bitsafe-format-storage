@@ -35,7 +35,7 @@ MSG_FORMAT_NOSTO="`gettext \
 If this is the first time you are running BitSafe from this device
 there's nothing you should be worried about, and you can safely continue.\"`"
 
-MSG_FORMAT_CONT="`gettext \"You wish to continue? (y/n)\"`"
+MSG_FORMAT_CONT="`gettext \"You wish to continue? (Y/n)\"`"
 MSG_FORMAT_CHKSPC="`gettext \"* Checking available space\"`"
 MSG_FORMAT_KEYSMALL="`gettext \
 \"The device you are running bitsafe from is too small.

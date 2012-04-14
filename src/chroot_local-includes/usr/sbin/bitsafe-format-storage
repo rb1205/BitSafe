@@ -68,7 +68,7 @@ CRYPT_DEVICE=/dev/"$DRIVE"2
 if [ -e $CRYPT_DEVICE ]; then
         warning "$MSG_FORMAT_THERESTO"
         read sec
-        if [[ "$sec" != "YES" ]]; then exit 1; fi
+        if [ -z "$sec" ] || [[ "$sec" != "YES" ]]; then exit 1; fi
         prstatus "$( printf "$MSG_FORMAT_DELPAR" "$CRYPT_DEVICE" )"
         parted /dev/$DRIVE rm 2 || critical_error "$MSG_FORMAT_ERRDEL"
 	NEW_DRIVE=false
@@ -76,6 +76,7 @@ else
         notify "$MSG_FORMAT_NOSTO"
         while [ 1 ]; do
                 read -p "$MSG_FORMAT_CONT" ans
+		ans=${ans:-y}
                 if [ $ans = "n" ]; then exit; fi
                 if [ $ans = "y" ]; then break; fi
         done
