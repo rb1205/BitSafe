@@ -1,0 +1,15 @@
+#!/bin/bash
+
+IF=binary.img
+OF=bitsafe.vmdk
+SIZE=4G
+
+TF=$IF.tmp
+cp $IF $TF
+
+dd if=/dev/zero of=$TF seek=$SIZE bs=1 count=1
+
+qemu-img convert $TF -O vmdk $OF
+
+rm $TF
+
