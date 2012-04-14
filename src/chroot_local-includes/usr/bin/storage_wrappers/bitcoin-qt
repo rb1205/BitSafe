@@ -2,15 +2,27 @@
 BITCOIN_HOME="$BITSAFE_STORAGE_MOUNTPOINT/bitcoin"
 test -d $BITCOIN_HOME || mkdir $BITCOIN_HOME
 
-if [ ! -e $BITCOIN_HOME/blkindex.dat ] || [ ! -e $BITCOIN_HOME/blk0001.dat ]; then
+if [ "`ps -A -o cmd | grep bitsafe-blockchain-download | grep -v grep`" ] && [ ! -e /tmp/lauch-bc-during ]; then
+	GUI_MODE=1
+	warning "`gettext \
+\"BitSafe is currently downloading the blockchain from
+the web. You can't start bitcoin untill the download is
+finished or cancelled.\"`"
+	exit 2
+fi
+test -e /tmp/lauch-bc-during && rm /tmp/lauch-bc-during
+
+MIN_SIZE=217000
+if [ ! -e $BITCOIN_HOME/blkindex.dat ] || [ ! -e $BITCOIN_HOME/blk0001.dat ] || [ `du $BITCOIN_HOME/blkindex.dat | egrep -o "^[0-9]+"` -lt $MIN_SIZE ]; then
 	TITLE="`gettext \"Download the BlockChain from the web?\"`"
 	MSG="`gettext \
-\"Do you wish to download the database from an external 
-(trusted) web archive? This is a one-time operation that 
+\"Do you wish to download the database from an external, 
+trusted web archive? This is a one-time operation that 
 will dramatically cut down the time needed to reach the 
 synced state (about an hour, down from several days) and 
 it's reasonably safe for most uses. 
 Do you want to download the blockchain from the web now?\"`"
+
 
         zenity --question --title="$TITLE" --text="$MSG"
         if [ $? -eq 0 ]; then

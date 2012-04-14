@@ -26,6 +26,7 @@ MSGSIG_CLOSING="`gettext \"Closing Bitcoin...\"`"
 MSGSIG_SIGKILL="`gettext \"Bitcoin did not respond to SIGHUP, trying SIGKILL...\"`"
 MSGSIG_DOWNLOAD="`gettext \"Downloading data...\"`"
 MSGSIG_BITCOIN="`gettext \"Starting Bitcoin...\"`"
+MSGSIG_SUCCESS="`gettext \"The Blockchain has been installed successfully!\"`"
 
 WIN_TITLE="`gettext \"Downloading the Block Chain\"`"
 

@@ -9,7 +9,8 @@ SITE="http://eu1.bitcoincharts.com/blockchain"
 KEY=/usr/share/bitsafe/bc_downloading_service_pubkey.gpg
 OUTPUT_DIR=$BITSAFE_STORAGE_MOUNTPOINT/bitcoin
 BITCOIN_PROCESS="bitcoin-qt"
-LOCKFILE=/tmp/downloading_bc
+FINISHED_FLAG_FILE=/tmp/finished_bc.$$
+NAMED_PIPE=/tmp/bc_pipe.$$
 
 function usage () {
         echo "$MSG_USAGE"
@@ -62,11 +63,7 @@ function signal () {
 function test_sig () {
         gpg -q --import $KEY
         cat $2 | gpg -q --verify $1 -
-        if [ $? -eq 0 ]; then
-                touch /tmp/sig_ok
-        else
-                test -e /tmp/sig_ok && rm /tmp/sig_ok
-        fi
+        if [ $? -ne 0 ]; then purge_bc; fi
 	rm $1 $2
 }
 
@@ -74,14 +71,19 @@ function purge_bc () {
         rm $OUTPUT_DIR/blk*.dat 2>/dev/null
 }
 
+function zk () {
+	ZENITY_PID=`ps h -C zenity -o pid`
+	if [ "$ZENITY_PID" ]; then kill $ZENITY_PID; fi
+	return 0
+}
 
 function do_stuff () {	
 #Get index and last archive
 	signal "$MSGSIG_INDEX"
-	FILE="`wget -T 5 -O - "$SITE" | tac | egrep  -o -m 1 "blockchain-[0-9]+-[0-9]+-[0-9]+.tar" | head -n 1 2>/dev/null`" 
+	FILE="`wget -T 5 -O - "$SITE" 2>/dev/null | tac | egrep  -o -m 1 "blockchain-[0-9]+-[0-9]+-[0-9]+.tar" | head -n 1`" 
 	if [ -z "$FILE" ]; then
 		error "$( printf "$MSGERR_NOINDEX" "$SITE")"
-		return 1
+		zk && return 1
 	fi
 	FILE_SIG=$FILE.sig
 	URL_FILE=$SITE/$FILE
@@ -91,27 +93,29 @@ function do_stuff () {
 #Download signature & launch verifier on named pipe
 	signal "$MSGSIG_SIGNATURE"
 	if ! wget "$URL_SIG" -O $PATHFILE_SIG &>/dev/null; then
+		test -e $FINISHED_FLAG_FILE && zk && return 1
 		error "$MSGERR_NOSIG"
-                return 1
+                zk && return 1
         fi
-	NAMED_PIPE=/tmp/bc_pipe.$$
+	test -e $FINISHED_FLAG_FILE && zk && return 1
 	mkfifo $NAMED_PIPE
 	#Start a background process and pass the DL stream to verify the signature
 	test_sig $PATHFILE_SIG $NAMED_PIPE & >/dev/null 2>&1
 
 #Close bitcoin
-	touch $LOCKFILE
         signal "$MSGSIG_CLOSING"
+	test -e /tmp/lauch-bc-during && rm /tmp/lauch-bc-during
         CURR_TIM=`date +%s`
-        let TIMEOUT_KILL=CURR_TIM+30
-        let TIMEOUT_OUT=TIMEOUT_KILL+10
+        let TIMEOUT_KILL=CURR_TIM+45
+        let TIMEOUT_OUT=TIMEOUT_KILL+15
         killall $BITCOIN_PROCESS >/dev/null 2>&1
         while [ -n "`ps -Al | grep -o $BITCOIN_PROCESS`" ]; do
                 sleep 1
+		test -e $FINISHED_FLAG_FILE && zk && return 1
                 if [ $TIMEOUT_OUT -lt `date +%s` ]; then
                         error "$MSGERR_CLOSING"
 			echo "meh" >$NAMED_PIPE #Close monitoring process
-                        exit 3
+                        zk && return 3
                 elif [ $TIMEOUT_KILL -lt `date +%s` ]; then
                         signal "$MSGSIG_SIGKILL"
                         killall -9 $BITCOIN_PROCESS >/dev/null 2>&1
@@ -124,37 +128,53 @@ function do_stuff () {
 	mkdir -p $OUTPUT_DIR
 	if [ "$GUI_MODE" ]; then
 		( wget -T 5 -O - $URL_FILE | tee $NAMED_PIPE | tar -xC $OUTPUT_DIR ) 2>&1 | \
-		sed -ue 's/^.* \+\([0-9]\+%\) \+\([0-9.]\+[GMKB]\) \+\([0-9hms.]\+\).*$/\1\n# <STR> \2 (\3)/' -e "s/<STR>/$MSGSIG_DOWNLOAD/"
+		sed -ue 's/^.* \+\([0-9]\+%\) \+\([0-9.]\+[GMKB]\) \+\([0-9hms.]\+\).*$/\1\n# <STR> \2B\/s (\3)/' -e "s/<STR>/$MSGSIG_DOWNLOAD/"
 	else
 		wget -T 5 -O - $URL_FILE | tee $NAMED_PIPE | tar -xC $OUTPUT_DIR 
 	fi
 
 #Check signature
 	wait
-	if [ ! -f /tmp/sig_ok ]; then
+	test -e $FINISHED_FLAG_FILE && zk && return 1
+	if [ ! -f $OUTPUT_DIR/blkindex.dat ]; then
 		error "$MSGERR_VERIF"
-		purge_bc
-		exit 2
+		zk && return 2
 	fi 
 	
 #Start Bitcoin
+	test -e $FINISHED_FLAG_FILE && zk && return 1
 	signal "$MSGSIG_BITCOIN"
-	rm $LOCKFILE
 	RESCAN="-rescan"
 	if [ "$DONOT_RESCAN" ]; then RESCAN="" ; fi
+	touch /tmp/lauch-bc-during
 	$BITCOIN_PROCESS $RESCAN &
 	disown
 	sleep 3
 
 #Finish
-	if [ -z "$GUI_MODE" ]; then prstatus "Complete!"; fi
-	exit 0
+	test -e $FINISHED_FLAG_FILE && zk && return 1
+	if [ "$GUI_MODE" ]; then signal "$MSGSIG_SUCCESS"; fi
+	ps h -C zenity &>/dev/null && echo 100
+	return 0
 }
 
+test -e $FINISHED_FLAG_FILE && rm $FINISHED_FLAG_FILE
+test -e $NAMED_PIPE && rm $NAMED_PIPE
+
 if [ $GUI_MODE ]; then
-	start_persistent_command do_stuff | zenity --progress --auto-close --auto-kill --title="$WIN_TITLE" --percentage=0
+	start_persistent_command do_stuff | zenity --progress width=400 --title="$WIN_TITLE" --percentage=0 &
+	EXIT_STATUS=$?
+	while ps h -C zenity &>/dev/null; do sleep 1; done
 else
-	start_persistent_command do_stuff 
+	start_persistent_command do_stuff
+	EXIT_STATUS=$?
 fi
 
-exit $?
+touch $FINISHED_FLAG_FILE
+WGET_PID=`ps h -C wget -o pid`
+if [ "$WGET_PID" ]; then kill $WGET_PID; fi
+if [ -e $NAMED_PIPE ]; then echo "meh" >$NAMED_PIPE; fi
+wait
+rm $FINISHED_FLAG_FILE
+
+exit $EXIT_STATUS
