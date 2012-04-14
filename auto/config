@@ -19,11 +19,13 @@ lb config noauto \
 --iso-preparer "Debian" \
 --iso-application "BitSafe" \
 --cache-indices false \
+--tasksel none \
 --bootstrap-flavour minimal \
 --apt-recommends disabled \
---tasksel none \
---binary-indices disabled \
---packages-lists "minimal"  
+--binary-indices disabled 
+
+#--packages-lists "minimal" \
+
 
 #Encryption is bugged on squeeze
 # --encryption aes256 \
