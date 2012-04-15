@@ -10,9 +10,8 @@ fi
 
 function processfile {
         gpg -bs $1 || return $?
-        md5sum $1 >$1.md5 || return $?
-        cp $1 $1.sig $1.md5 $TODIR
-	rm $1.sig $1.md5
+	cp $1 $TODIR
+	mv $1.sig $TODIR
 	return $?
 }
 
@@ -44,3 +43,9 @@ tar -czf ../live.tar.gz live || exiterr
 cd ..
 processfile live.tar.gz || exiterr
 rm live.tar.gz || exiterr
+
+echo ""
+echo "Calculating MD5 hash..."
+cd $TODIR 
+md5sum binary.img live.tar.gz
+
