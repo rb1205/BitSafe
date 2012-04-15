@@ -6,3 +6,5 @@
 *  Trasparent TOR routing isn't working. Tor proxying with Firefox and Bitcoin works fine.
 
 *  Switching off the PC or pulling out the USB drive while bitcoin is working can cause the blockchain to become corrupt, requiring you to delete the blockchain file or formatting the storage.
+
+*  Blockchain downloader script doesn't support resume, and deletes the stored blockchain (if any) as soon as it's started.
