@@ -64,19 +64,22 @@ while [ 1 ]; do
 				else rm $file; fi
 			done
 		fi
-		if [ "$IN_USE" ] && [ $UMOUNT_TIME -ne 0 ]; then
-			logline "Storage is in use. Umount cancelled."
-			UMOUNT_TIME=0
-		elif [ $UMOUNT_TIME -eq 0 ]; then
-			logline "Storage partition is not marked as used by anyone. It will be unmounted in about $BITSAFE_STORAGE_AUTOUMOUNT seconds."
-			UMOUNT_TIME=`date +%s`
-		fi
-		if [ $UMOUNT_TIME -ne 0 ]; then
-			let UMOUNT_PASSED_TIME=`date +%s`-$UMOUNT_TIME
-			if [ $UMOUNT_PASSED_TIME -gt $BITSAFE_STORAGE_AUTOUMOUNT ]; then
-				logline "Idle time reached. Umounting..."
-				RET=`bitsafe-umount-storage -g 2>&1`
-				[ "$RET" ] && logline "$RET"
+		if [ "$IN_USE" ]; then
+			if [ $UMOUNT_TIME -ne 0 ]; then
+				logline "Storage is in use. Umount cancelled."
+				UMOUNT_TIME=0
+			fi
+		else
+			if [ $UMOUNT_TIME -eq 0 ]; then
+				logline "Storage partition is not marked as used by anyone. It will be unmounted in about $BITSAFE_STORAGE_AUTOUMOUNT seconds."
+				UMOUNT_TIME=`date +%s`
+			else
+				let UMOUNT_PASSED_TIME=`date +%s`-$UMOUNT_TIME
+				if [ $UMOUNT_PASSED_TIME -gt $BITSAFE_STORAGE_AUTOUMOUNT ]; then
+					logline "Idle time reached. Umounting..."		
+					RET=`bitsafe-umount-storage -g 2>&1`
+					[ "$RET" ] && logline "$RET"
+				fi
 			fi
 		fi
 	else

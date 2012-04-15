@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-23 22:18+0000\n"
+"POT-Creation-Date: 2012-04-14 14:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,94 @@ msgid ""
 "screen locking feature.\n"
 "It can and it SHOULD be different from\n"
 "the secure storage partition password."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:2
+msgid ""
+"\n"
+"bitsafe-blockchain-download <options>\n"
+"\n"
+"Downloads and install a packaged nightly version of the blockchain\n"
+"from a web site () and verify it aganist a local public key.\n"
+"Can work both in graphical and terminal mode. The Graphical mode\n"
+"is enabled by default if the script is launched not interactively\n"
+"and the display environment variable is defined. You can change\n"
+"this with option flags.\n"
+"\n"
+"Options:\n"
+"        -g              Forces GUI behavior\n"
+"        -t              Forces terminal-style behavior\n"
+"        -q              Suppress all output\n"
+"\t-n\t\tNormally this script launches bitcoin with\n"
+"\t\t\tthe -rescan flag as the download ends.\n"
+"\t\t\tuse -n to launch without rescan flag.\n"
+"        -h              this help\n"
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:23
+msgid "Downloading index..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:24
+msgid "Downloading signature file..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:25
+msgid "Closing Bitcoin..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:26
+msgid "Bitcoin did not respond to SIGHUP, trying SIGKILL..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:27
+msgid "Downloading data..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:28
+msgid "Starting Bitcoin..."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:29
+msgid "The Blockchain has been installed successfully!"
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:31
+msgid "Downloading the Block Chain"
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:34
+msgid ""
+"Can't retrive archive index from %s.\n"
+"Please make sure that you're connected\n"
+"to the internet and try again in a couple\n"
+"of minutes."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:40
+msgid ""
+"Can't download the block chain signature.\n"
+"Please make sure that you're connected\n"
+"to the internet and try again in a couple\n"
+"of minutes."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:46
+msgid ""
+"Failed to close bitcoin. Probably this\n"
+"is because the client hung up and refuses\n"
+"to die. Launch this script again after\n"
+"rebooting bitsafe."
+msgstr ""
+
+#: /lib/strings/bitsafe-blockchain-download:52
+msgid ""
+"Signature verification failed!\n"
+"This means that your downloaded file is\n"
+"invalid: the signing key changed or your\n"
+"internet connection is being filtered or\n"
+"altered by someone or something.\n"
+"Please try again in a couple of minutes."
 msgstr ""
 
 #: /lib/strings/bitsafe-format-storage:2
@@ -90,7 +178,7 @@ msgid ""
 msgstr ""
 
 #: /lib/strings/bitsafe-format-storage:38
-msgid "You wish to continue? (y/n)"
+msgid "You wish to continue? (Y/n)"
 msgstr ""
 
 #: /lib/strings/bitsafe-format-storage:39
@@ -372,12 +460,33 @@ msgid ""
 "minutes and try again."
 msgstr ""
 
-#: /usr/bin/storage_wrappers/bitcoin:6
+#: /usr/bin/storage_wrappers/bitcoin-qt:8
+msgid ""
+"BitSafe is currently downloading the blockchain from\n"
+"the web. You can't start bitcoin untill the download is\n"
+"finished or cancelled."
+msgstr ""
+
+#: /usr/bin/storage_wrappers/bitcoin-qt:17
+msgid "Download the BlockChain from the web?"
+msgstr ""
+
+#: /usr/bin/storage_wrappers/bitcoin-qt:19
+msgid ""
+"Do you wish to download the database from an external, \n"
+"trusted web archive? This is a one-time operation that \n"
+"will dramatically cut down the time needed to reach the \n"
+"synced state (about an hour, down from several days) and \n"
+"it's reasonably safe for most uses. \n"
+"Do you want to download the blockchain from the web now?"
+msgstr ""
+
+#: /usr/bin/storage_wrappers/bitcoin-qt:38
 msgid "Bitcoin is starting up"
 msgstr ""
 
-#: /usr/bin/storage_wrappers/bitcoin:7
+#: /usr/bin/storage_wrappers/bitcoin-qt:39
 msgid ""
 "Bitcoin is starting for the first time on this media.\n"
-"It will take some time to build up its environment, please wait..."
+"It will take a while to build up its environment, please wait..."
 msgstr ""

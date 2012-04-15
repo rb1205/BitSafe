@@ -68,7 +68,7 @@ CRYPT_DEVICE=/dev/"$DRIVE"2
 if [ -e $CRYPT_DEVICE ]; then
         warning "$MSG_FORMAT_THERESTO"
         read sec
-        if [[ "$sec" != "YES" ]]; then exit 1; fi
+        if [ -z "$sec" ] || [[ "$sec" != "YES" ]]; then exit 1; fi
         prstatus "$( printf "$MSG_FORMAT_DELPAR" "$CRYPT_DEVICE" )"
         parted /dev/$DRIVE rm 2 || critical_error "$MSG_FORMAT_ERRDEL"
 	NEW_DRIVE=false
@@ -76,6 +76,7 @@ else
         notify "$MSG_FORMAT_NOSTO"
         while [ 1 ]; do
                 read -p "$MSG_FORMAT_CONT" ans
+		ans=${ans:-y}
                 if [ $ans = "n" ]; then exit; fi
                 if [ $ans = "y" ]; then break; fi
         done
@@ -102,7 +103,7 @@ else
 fi
 prstatus "$( printf "$MSG_FORMAT_MKPART" "$DRIVE" "$PART_BEGIN" "$PART_END" )"
 parted /dev/$DRIVE mkpart primary $PART_BEGIN $PART_END || \
-  critical_error "$MSG_FORMAT_PARTEDERR"
+  critical_error "$MSG_FORMAT_PARTEDERR" &>/dev/null
 PART2_SIZE_BLOCKS=`cat /proc/partitions | grep -w "$DRIVE"2 | egrep -ow "[0-9]{4,15}"`
 test -z "$PART2_SIZE_BLOCKS" && critical_error "$MSG_FORMAT_PARTNODEC"
 

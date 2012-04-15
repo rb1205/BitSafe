@@ -12,14 +12,14 @@ sudo openssh-client screen rsync wipe nmap mtr bash bash-completion vim-tiny pv 
 tor tor-geoipdb gnupg gpa polipo vidalia
 
 #FS
-parted sshfs cryptsetup cryptsetup-luks
+parted sshfs cryptsetup cryptsetup-luks fuse-utils libdevmapper dmsetup
 
 #Desktop managers
 fluxbox zenity
 
 #net
-iptables wireless-tools wpasupplicant firmware-iwlwifi
+iptables wireless-tools wpasupplicant firmware-iwlwifi wget
 
 #Misc
-matchbox-keyboard libnotify-bin gettext
+matchbox-keyboard libnotify-bin gettext acpi-support
 

@@ -11,6 +11,7 @@ if [ "$PRECONF_PACKETREM" ]; then apt-get --assume-yes purge $PRECONF_PACKETREM;
 apt-get --assume-yes autoremove --purge
 apt-get clean
 
+rm -r /usr/share/ghostscript
 # rm -r /var/lib/apt/*
 # rm -r /var/cache/apt/*
 

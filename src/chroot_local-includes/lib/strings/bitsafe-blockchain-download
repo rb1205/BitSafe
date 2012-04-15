@@ -1,0 +1,58 @@
+MSG_USAGE="`gettext \
+\"
+bitsafe-blockchain-download <options>
+
+Downloads and install a packaged nightly version of the blockchain
+from a web site () and verify it aganist a local public key.
+Can work both in graphical and terminal mode. The Graphical mode
+is enabled by default if the script is launched not interactively
+and the display environment variable is defined. You can change
+this with option flags.
+
+Options:
+        -g              Forces GUI behavior
+        -t              Forces terminal-style behavior
+        -q              Suppress all output
+	-n		Normally this script launches bitcoin with
+			the "-rescan" flag as the download ends.
+			use -n to launch without rescan flag.
+        -h              this help
+\"`"
+
+
+MSGSIG_INDEX="`gettext \"Downloading index...\"`"
+MSGSIG_SIGNATURE="`gettext \"Downloading signature file...\"`"
+MSGSIG_CLOSING="`gettext \"Closing Bitcoin...\"`"
+MSGSIG_SIGKILL="`gettext \"Bitcoin did not respond to SIGHUP, trying SIGKILL...\"`"
+MSGSIG_DOWNLOAD="`gettext \"Downloading data...\"`"
+MSGSIG_BITCOIN="`gettext \"Starting Bitcoin...\"`"
+MSGSIG_SUCCESS="`gettext \"The Blockchain has been installed successfully!\"`"
+
+WIN_TITLE="`gettext \"Downloading the Block Chain\"`"
+
+MSGERR_NOINDEX="`gettext \
+\"Can't retrive archive index from %s.
+Please make sure that you're connected
+to the internet and try again in a couple
+of minutes.\"`"
+
+MSGERR_NOSIG="`gettext \
+\"Can't download the block chain signature.
+Please make sure that you're connected
+to the internet and try again in a couple
+of minutes.\"`"
+
+MSGERR_CLOSING="`gettext \
+\"Failed to close bitcoin. Probably this
+is because the client hung up and refuses
+to die. Launch this script again after
+rebooting bitsafe.\"`"
+
+MSGERR_VERIF="`gettext \
+\"Signature verification failed!
+This means that your downloaded file is
+invalid: the signing key changed or your
+internet connection is being filtered or
+altered by someone or something.
+Please try again in a couple of minutes.\"`"
+

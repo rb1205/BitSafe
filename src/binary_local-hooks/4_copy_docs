@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cp LICENSE binary/
+cat README | egrep -v "^#" >binary/README

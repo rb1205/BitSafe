@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Download Blockchain
+Name[it]=Scarica la Blockchain
+Comment=Download an up-to-date snapshot of the blockchain from the web to dramatically reduce bitcoin sync time
+Comment[it]=Scarica dal web una versione aggiornata della catena dei blocchi in modo da ridurre drasticamente i tempi di sincronizzazione di bitcoin
+Exec=bitsafe-blockchain-download
+Terminal=false
+Type=Application
+Icon=bottom
+Encoding=UTF-8
+Categories=Network
