@@ -1,7 +1,8 @@
 #!/bin/bash
 
 OUTPUT_DIR=~/Dropbox/Public
-#OUTPUT_DIR=/tmp
+
+DIST_NAME=BitSafe
 
 if [ -z "$1" ]; then
 	echo "usage: release <version>"
@@ -37,15 +38,21 @@ if [ ! -d $TODIR ]; then
         exit 1
 fi
 
-processfile binary.img || exiterr
-cd binary || exiterr
-tar -czf ../live.tar.gz live || exiterr
+BINARY_FILE=$DIST_NAME\_V$1\_image.img
+UPDATE_FILE=$DIST_NAME\_V$1\_update.zip
+
+ln -s binary.img "$BINARY_FILE" || exiterr
+processfile "$BINARY_FILE" || exiterr
+rm "$BINARY_FILE"
+
+cd binary || exiterr 
+#tar -czf ../live.tar.gz live || exiterr
+zip -r ../"$UPDATE_FILE" live || exiterr
 cd ..
-processfile live.tar.gz || exiterr
-rm live.tar.gz || exiterr
+processfile "$UPDATE_FILE" || exiterr
+rm "$UPDATE_FILE" || exiterr
 
 echo ""
 echo "Calculating MD5 hash..."
 cd $TODIR 
-md5sum binary.img live.tar.gz
-
+md5sum "$BINARY_FILE" "$UPDATE_FILE"
