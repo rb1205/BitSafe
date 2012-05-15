@@ -22,5 +22,8 @@ else
 	/usr/sbin/tor-route-disable
 fi
 
+#Prevent access to the hardware clock, letting it be accessed only
+#during boot and preventing automatic write at shutdown.
+echo -e "\nHWCLOCKACCESS=no\n" >>/etc/defaults/rcS
 
 exit 0
