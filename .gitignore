@@ -6,3 +6,6 @@ binary/
 binary.*
 log
 .lock
+.build
+chroot.packages.install
+chroot.packages.live

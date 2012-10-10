@@ -1,4 +1,4 @@
-To build BitSafe you'll need a workin Debian Squeeze installation on a i386 or x64 architecture.
+To build BitSafe you'll need a workin Debian Wheezy installation on a i386 or x64 architecture.
 
 First, make sure that you have the needed tools:
 

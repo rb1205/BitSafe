@@ -5,20 +5,20 @@
 libgtk2.0-0 
 
 # Console tools
-sudo openssh-client screen rsync wipe nmap mtr bash bash-completion vim-tiny pv lsof whois
+sudo openssh-client screen rsync wipe nmap mtr bash bash-completion vim-tiny pv lsof whois 
 #I need the whois for mkpasswd. Ask the debian guys why.
 
 # Security
 tor tor-geoipdb gnupg gpa polipo vidalia
 
 #FS
-parted sshfs cryptsetup cryptsetup-luks fuse-utils libdevmapper dmsetup
+parted sshfs cryptsetup cryptsetup-luks fuse-utils dmsetup
 
 #Desktop managers
 fluxbox zenity
 
 #net
-iptables wireless-tools wpasupplicant firmware-iwlwifi wget
+iptables wireless-tools wpasupplicant firmware-iwlwifi wget network-manager-gnome
 
 #Misc
 matchbox-keyboard libnotify-bin gettext acpi-support

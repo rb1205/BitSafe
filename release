@@ -27,8 +27,11 @@ if [ ! -d $OUTPUT_DIR ]; then
 	exit 1
 fi
 
-if [ ! -e binary.img ] || [ ! -e binary/live/filesystem.squashfs ]; then
-	echo "missing binary.img or filesystem.squashfs"
+BINARY_FILE_SRC=binary.hybrid.iso
+UPDATE_FILE_SRC=binary/live/filesystem.squashfs
+
+if [ ! -e $BINARY_FILE_SRC ] || [ ! -e $UPDATE_FILE_SRC ]; then
+	echo "missing $BINARY_FILE_SRC or $UPDATE_FILE_SRC"
 	exit 1
 fi
 TODIR=$OUTPUT_DIR/$1
@@ -41,7 +44,7 @@ fi
 BINARY_FILE=$DIST_NAME\_V$1\_image.img
 UPDATE_FILE=$DIST_NAME\_V$1\_update.zip
 
-ln -s binary.img "$BINARY_FILE" || exiterr
+ln -s $BINARY_FILE_SRC "$BINARY_FILE" || exiterr
 processfile "$BINARY_FILE" || exiterr
 rm "$BINARY_FILE"
 

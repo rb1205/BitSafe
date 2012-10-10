@@ -1,8 +1,0 @@
-#!/bin/sh
-
-. /lib/bitsafe-func
-
-find_drive
-
-sed -i "s/sdX/$DRIVE/" /etc/udev/rules.d/79-udev-hide-system.rules
-

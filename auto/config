@@ -3,32 +3,33 @@
 . ./bitsafe.build.conf
 
 lb config noauto \
+--apt apt \
+--apt-indices false \
+--apt-recommends disabled \
 --architecture $PRECONF_ARCHITECTURE \
 --linux-flavours $PRECONF_SUBARCH \
---distribution squeeze \
+--hdd-size $PRECONF_TARGETSIZE \
+--distribution wheezy \
 --includes none \
 --memtest none \
---binary-images usb-hdd \
+--binary-images iso-hybrid \
 --archive-areas "main non-free" \
---volatile true \
---security true \
---syslinux-splash "contrib/media/syslinux_splash.png" \
 --cache-stages bootstrap \
 --debian-installer false \
---hostname bitsafe \
 --iso-preparer "Debian" \
 --iso-application "BitSafe" \
 --cache-indices false \
 --tasksel none \
+--win32-loader false \
 --bootstrap-flavour minimal \
---apt-recommends disabled \
---binary-indices disabled 
+ || exit 2
 
+#--hdd_label="BITSAFE" \
+#--volatile true \
+#--security true \
 #--packages-lists "minimal" \
-
-
-#Encryption is bugged on squeeze
-# --encryption aes256 \
+#--syslinux-splash "contrib/media/syslinux_splash.png" \
+#--hostname bitsafe \
 
 # I don't need boot parameter, i create a custom menulist for syslinux later on in the build with hooks
 
@@ -40,15 +41,11 @@ lb config noauto \
 cp -a src/* config/
 
 #Copy bitsafe configuration files in the bitsafe image
-cat bitsafe.live.conf >>config/chroot_local-includes/usr/share/bitsafe/bitsafe.live.conf
-cp bitsafe.build.conf config/chroot_local-includes/usr/share/bitsafe/
+cat bitsafe.live.conf >>config/includes.chroot/usr/share/bitsafe/bitsafe.live.conf
+cp bitsafe.build.conf config/includes.chroot/usr/share/bitsafe/
 
 #Copy localizations 
-cp localizations/bitsafe/*.po config/chroot_local-includes/usr/share/bitsafe/localizations
+cp localizations/bitsafe/*.po config/includes.chroot/usr/share/bitsafe/localizations
 
-#Exclude some packages in the bootstrap image
-export LB_BOOTSTRAP_EXCLUDE="vim-tiny,nano,ed"
-
-#Do not add boot directory to the image, as it wold be never used. But it doesn't work.
-export MKSQUASHFS_OPTIONS="-e boot"
-
+#Set label
+sed 's/LB_HDD_LABEL=.*/LB_HDD_LABEL="BITSAFE"/' -i config/binary

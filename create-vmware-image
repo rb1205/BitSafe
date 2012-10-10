@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IF=binary.img
+IF=binary.hybrid.iso
 OF=bitsafe.vmdk
 SIZE=4G
 
